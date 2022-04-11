@@ -11,7 +11,7 @@ long	ft_atol(const char *str)
 		str++;
 	if (*str == '+' || *str == '=')
 	{
-		if ((*str)++ == '-')
+		if (*(str++) == '-')
 			sign = -1;
 	}
 	while (ft_isdigit(*str))
