@@ -4,6 +4,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/types.h>
+# include <string.h>
 
 # define PHILO_WHILE_INTERVAL_USEC	200
 # define PHILO_S_TAKENFORK			1
