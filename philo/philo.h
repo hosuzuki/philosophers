@@ -1,9 +1,11 @@
 #ifndef PHILO_H
 # define PHILO_H
 
+#	include <unistd.h>
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/types.h>
+# include <sys/time.h>
 # include <string.h>
 
 # define PHILO_WHILE_INTERVAL_USEC	200
