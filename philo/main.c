@@ -1,4 +1,4 @@
-#include <philo.h>
+#include "philo.h"
 
 int	main(int argc, char **argv)
 {
@@ -15,7 +15,7 @@ int	main(int argc, char **argv)
 	i = 0;
 	while (i < n_philo)
 	{
-		pthread_creat(&philo_pthread[i], NULL, philo_activity, &philo[i]);
+		pthread_create(&philo_pthread[i], NULL, philo_activity, &philo[i]);
 		i++;
 	}
 	i = 0;

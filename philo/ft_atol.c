@@ -1,6 +1,6 @@
-#include "philo_utils.h"
+#include "philo.h"
 
-long	ft_atol(const char *str)
+int	ft_atol(const char *str)
 {
 	long			sign;
 	unsigned long	i;

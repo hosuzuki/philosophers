@@ -9,8 +9,8 @@ void	*philo_activity(void *philo_arg)
 	philo = (t_philo *)philo_arg;
 	if ((time_start_eat = philo_gettime()) < 0)
 		return (NULL);
-	if ((philo->index % 2)
-		usleep(200);
+	if (philo->index % 2)
+		usleep (200);
 	while (1)
 	{
 		if ((time_start_eat = philo_eat(philo, time_start_eat)) < 0)

@@ -27,16 +27,23 @@ static int	mutex_init(long n_philo)
 		pthread_mutex_destroy(&g_mutex_flgend);
 		return (-1);
 	}
-	if (pthread_mutex_init(&g_mutex_wriet, NULL))
+	if (pthread_mutex_init(&g_mutex_write, NULL))
 	{
 		pthread_mutex_destroy(&g_mutex_flgend);
 		pthread_mutex_destroy(&g_mutex_n_finished);
 		return (-1);
 	}
+	if (mutex_fork_init(n_philo))
+	{
+		pthread_mutex_destroy(&g_mutex_flgend);
+		pthread_mutex_destroy(&g_mutex_n_finished);
+		pthread_mutex_destroy(&g_mutex_write);
+		return (-1);
+	}
 	return (0);
 }
 
-int	philo_initi(pthread_t **philo_pthread, long n_philo)
+int	philo_init(pthread_t **philo_pthread, long n_philo)
 {
 	int	i;
 
@@ -58,7 +65,7 @@ int	philo_initi(pthread_t **philo_pthread, long n_philo)
 		g_fork_rsvd_by[i] = -1;
 		i++;
 	}
-	if (mutex_initi(n_philo) < 0)
+	if (mutex_init(n_philo) < 0)
 		return (-1);
 	return (0);
 }

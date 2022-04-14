@@ -9,5 +9,5 @@ void	philo_mutex_destroy(long n_philo)
 	pthread_mutex_destroy(&g_mutex_write);
 	i = 0;
 	while (i < n_philo)
-		ptrhead_mutex_destroy(&g_mutex_fork[i++]);
+		pthread_mutex_destroy(&g_mutex_fork[i++]);
 }

@@ -52,7 +52,7 @@ static int	fork_is_available(t_philo *philo)
 				|| g_fork_rsvd_by[(philo->index + 1) % philo->n_philo] == -1))
 		return (1);
 	if (g_fork_rsvd_by[philo->index] == -1)
-		g_fork_rsvd_by[philo->index} = philo->index;
+		g_fork_rsvd_by[philo->index] = philo->index;
 	if (g_fork_rsvd_by[(philo->index + 1) % philo->n_philo] == -1)
 		g_fork_rsvd_by[(philo->index + 1) % philo->n_philo] = philo->index;
 	return (0);
@@ -77,4 +77,26 @@ static int	get_fork(t_philo *philo)
 	}
 	ctrl_mutex_fork(philo->index, philo->n_philo, 'u');
 	return (0);
+}
+
+long	philo_eat(t_philo *philo, long time_start_eating)
+{
+	while (!get_fork(philo))
+	{
+		if (philo_check_dead(philo, time_start_eating))
+			return (-1);
+		usleep(PHILO_WHILE_INTERVAL_USEC);
+	}
+	if ((time_start_eating = philo_gettime()) < 0)
+		return (-1);
+	philo_putstatus(philo->index, time_start_eating, PHILO_S_EATING);
+	while (!philo_has_finished(time_start_eating, philo->time_to_eat))
+	{
+		if (philo_check_dead(philo, time_start_eating))
+			return (-1);
+		usleep(PHILO_WHILE_INTERVAL_USEC);
+	}
+	if (finish_eating(philo))
+		return (-1);
+	return (time_start_eating);
 }
