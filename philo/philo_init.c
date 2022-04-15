@@ -43,7 +43,7 @@ static int	mutex_init(long n_philo)
 	return (0);
 }
 
-int	philo_init(pthread_t **philo_pthread, long n_philo)
+int	ft_init_pthread(t_lst **lst, pthread_t **philo_pthread, long n_philo)
 {
 	int	i;
 

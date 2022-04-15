@@ -13,10 +13,9 @@ int	main(int argc, char **argv)
 	return (0);
 	(void)i;
 	(void)n_philo;
-	(void)philo_pthread;
-/*
-	if (philo_init(&philo_pthread, philo->n_philo) < 0)
+	if (ft_init_pthread(&lst, &philo_pthread, lst->n_philo) < 0)
 		return (philo_free_ret(philo, NULL, 1));
+/*
 	n_philo = philo[0].n_philo;
 	i = 0;
 	while (i < n_philo)

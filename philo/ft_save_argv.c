@@ -48,10 +48,13 @@ int	ft_save_argv(int argc, char **argv, t_lst **lst)
 	n_philo = ft_atol(argv[1]);
 	if (n_philo  < 2)
 		return (ft_put_error("Invalid Argument", -1));
-	n_to_eat = ft_atol(argv[5]);
-	if (argc == 6 && n_to_eat < 1)
-		return (ft_put_error("Invalid Argument", -1));
-	else if (argc != 6)
+	if (argc == 6)
+	{
+		n_to_eat = ft_atol(argv[5]);
+		if (n_to_eat < 1)
+			return (ft_put_error("Invalid Argument", -1));
+	}
+	else
 		n_to_eat = -1;
 	if (ft_init_lst(argv, *lst, n_philo, n_to_eat) < 0)
 		return (-1);
