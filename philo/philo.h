@@ -24,14 +24,15 @@ typedef struct	s_lst
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		n_to_eat;
-	int				*fork;
-	int				*fork_rsvd_by;
-	pthread_mutex_t	*mutex_fork;
 	int				flgend;
+	pthread_mutex_t	*mutex_fork;
+	int				*fork;
+	int				*fork_rsvd;
+
 	pthread_mutex_t	mutex_flgend;
-	int				n_finished;
 	pthread_mutex_t	mutex_n_finished;
 	pthread_mutex_t	mutex_write;
+	int				n_finished;
 }	t_lst;
 
 
