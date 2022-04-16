@@ -24,32 +24,34 @@ typedef struct	s_lst
 	long		time_to_eat;
 	long		time_to_sleep;
 	long		n_to_eat;
+}	t_lst;
+
+typedef struct	s_thrd
+{
 	int				flgend;
 	pthread_mutex_t	*mutex_fork;
 	int				*fork;
 	int				*fork_rsvd;
-
 	pthread_mutex_t	mutex_flgend;
 	pthread_mutex_t	mutex_n_finished;
 	pthread_mutex_t	mutex_write;
 	int				n_finished;
-}	t_lst;
+} t_thrd;
 
+int	ft_init_pthread(t_thrd *th, pthread_t **p, long n_philo);
+void	*ft_activation(void *philo_arg);
+long	ft_return_time(void);
+int	ft_free_all(t_thrd *th, pthread_t *p, int ret);
+int				ft_save_argv(int argc, char **argv, t_lst **lst);
+int	ft_put_error(const char *str, int ret);
 
-int				philo_init(pthread_t **philo_pthread, long n_philo);
-void			*philo_activity(void *philo_arg);
 long			philo_eat(t_lst *lst, long time_start_eating);
 int				philo_sleep(t_lst *lst, long time_start_eating);
 int				philo_check_dead(t_lst *lst, long time_start_eating);
-int				philo_free_ret(t_lst *lst, pthread_t *philo_pthread,
-																	int ret);
 void			philo_mutex_destroy(long n_philo);
-int				ft_save_argv(int argc, char **argv, t_lst **lst);
-long			philo_gettime(void);
 void			philo_putstatus(long philo_index, long time_ms,
 														int philo_status);
 int				philo_has_finished(long time_start, long time_to_do);
-int	ft_put_error(const char *str, int ret);
 
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 int				ft_isspace(int c);
