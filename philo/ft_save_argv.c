@@ -11,23 +11,23 @@ static int	ft_isnumber(char *str)
 	return (1);
 }
 
-static int	ft_init_lst(char **argv, t_lst *lst, long n_philo, long n_to_eat)
+static int	ft_init_lst(char **argv, t_lst **lst, long n_philo, long n_to_eat)
 {
 	long	i;
 
-	if (!(lst = (t_lst *)malloc(sizeof(t_lst) * n_philo)))
+	if (!(*lst = (t_lst *)malloc(sizeof(t_lst) * n_philo)))
 		return (ft_put_error("Malloc Error", -1));
-	lst[0].index = 0;
-	lst[0].n_philo = n_philo;
-	lst[0].time_to_die = ft_atol(argv[2]);
-	lst[0].time_to_eat = ft_atol(argv[3]);
-	lst[0].time_to_sleep = ft_atol(argv[4]);
-	lst[0].n_to_eat = n_to_eat;
+	lst[0]->index = 0;
+	lst[0]->n_philo = n_philo;
+	lst[0]->time_to_die = ft_atol(argv[2]);
+	lst[0]->time_to_eat = ft_atol(argv[3]);
+	lst[0]->time_to_sleep = ft_atol(argv[4]);
+	lst[0]->n_to_eat = n_to_eat;
 	i = 1;
 	while (i < n_philo) // why ??
 	{
 		ft_memcpy(&lst[i], &lst[0], sizeof(t_lst));
-		lst[i].index = i;
+		lst[i]->index = i;
 		i++;
 	}
 	return (0);
@@ -56,7 +56,7 @@ int	ft_save_argv(int argc, char **argv, t_lst **lst)
 	}
 	else
 		n_to_eat = -1;
-	if (ft_init_lst(argv, *lst, n_philo, n_to_eat) < 0)
+	if (ft_init_lst(argv, lst, n_philo, n_to_eat) < 0)
 		return (-1);
 	return (0);
 }
