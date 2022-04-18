@@ -46,7 +46,7 @@ int	ft_save_argv(int argc, char **argv, t_lst **lst)
 		if (!ft_isnumber(argv[i++]))
 			return (ft_put_error("Invalid Argument", -1));
 	n_philo = ft_atol(argv[1]);
-	if (n_philo  < 2)
+	if (n_philo < 2)
 		return (ft_put_error("Invalid Argument", -1));
 	if (argc == 6)
 	{
