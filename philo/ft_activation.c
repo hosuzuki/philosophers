@@ -11,7 +11,6 @@ void	*ft_activation(void *philo_arg)
 		return (NULL);
 	if (lst->index % 2)
 		usleep (200);
-/*
 	while (1)
 	{
 		if ((start_to_eat = ft_eat(lst, start_to_eat)) < 0)

@@ -79,7 +79,7 @@ static int	get_fork(t_philo *philo)
 	return (0);
 }
 
-long	philo_eat(t_philo *philo, long time_start_eating)
+long	ft_eat(t_lst *lst, long start_to_eating)
 {
 	while (!get_fork(philo))
 	{
