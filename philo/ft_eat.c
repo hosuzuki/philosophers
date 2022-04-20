@@ -58,7 +58,7 @@ static int	fork_is_available(t_philo *philo)
 	return (0);
 }
 
-static int	get_fork(t_philo *philo)
+static int	ft_fork(t_philo *philo)
 {
 	long	time_taken_fork;
 
@@ -81,7 +81,7 @@ static int	get_fork(t_philo *philo)
 
 long	ft_eat(t_lst *lst, long start_to_eating)
 {
-	while (!get_fork(philo))
+	while (!ft_fork(philo))
 	{
 		if (philo_check_dead(philo, time_start_eating))
 			return (-1);

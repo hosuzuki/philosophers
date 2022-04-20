@@ -21,6 +21,5 @@ void	*ft_activation(void *philo_arg)
 			return (NULL);
 		ft_put_status(lst->index, start_to_think, PHILO_S_THINKING);
 	}
-*/
 	return (NULL);
 }
