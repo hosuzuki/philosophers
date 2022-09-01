@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_save_argv.c                                     :+:      :+:    :+:   */
+/*   save_argv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/08/31 21:25:42 by hos              ###   ########.fr       */
+/*   Updated: 2022/08/31 22:36:52 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ static int	init_lst(char **argv, t_lst **lst, long n_philo, long n_to_eat)
 		return (put_error("Malloc Error", -1));
 	lst[0]->index = 0;
 	lst[0]->n_philo = n_philo;
-	lst[0]->time_to_die = ft_atol(argv[2]);
-	lst[0]->time_to_eat = ft_atol(argv[3]);
-	lst[0]->time_to_sleep = ft_atol(argv[4]);
-	lst[0]->n_to_eat = n_to_eat;
+	lst[0]->die = ft_atol(argv[2]);
+	lst[0]->eat = ft_atol(argv[3]);
+	lst[0]->sleep = ft_atol(argv[4]);
+	lst[0]->n_eat = n_to_eat;
 	i = 1;
 	while (i < n_philo) // why ??
 	{

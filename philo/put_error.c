@@ -1,41 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_put_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/08/30 14:39:02 by hos              ###   ########.fr       */
+/*   Updated: 2022/08/31 20:05:03 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	put_error(const char *str, int ret)
 {
-	size_t	i;
-	int		flag;
-
-	if (!src)
-		return (-1);
-	if (dstsize > 0)
-		flag = 0;
-	else
-		flag = 1;
-	i = 0;
-	while (src[i] != '\0')
-	{
-		if (i == dstsize - 1)
-		{
-			dst[i] = '\0';
-			flag = 1;
-		}
-		if (flag == 0)
-			dst[i] = src[i];
-		i++;
-	}
-	if (flag == 0)
-		dst[i] = '\0';
-	return (i);
+	printf("ERROR: %s\n", str);
+	return (ret);
 }

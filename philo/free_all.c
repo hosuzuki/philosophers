@@ -1,41 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/08/30 14:39:02 by hos              ###   ########.fr       */
+/*   Updated: 2022/08/31 22:37:06 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	free_all(t_thrd *t, pthread_t *p, int ret)
 {
-	size_t	i;
-	int		flag;
-
-	if (!src)
-		return (-1);
-	if (dstsize > 0)
-		flag = 0;
-	else
-		flag = 1;
-	i = 0;
-	while (src[i] != '\0')
-	{
-		if (i == dstsize - 1)
-		{
-			dst[i] = '\0';
-			flag = 1;
-		}
-		if (flag == 0)
-			dst[i] = src[i];
-		i++;
-	}
-	if (flag == 0)
-		dst[i] = '\0';
-	return (i);
+	free (p);
+	free (t->fork);
+	free (t->mt_fork);
+	free (t->fork_rsvd); // needed?
+//	free (t);
+//	what about lst?
+	return (ret);
 }

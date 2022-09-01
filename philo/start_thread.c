@@ -1,41 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   start_thread.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/08/30 14:39:02 by hos              ###   ########.fr       */
+/*   Updated: 2022/08/31 22:40:13 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+void	*start_thread(void *philo_arg) //arg is from pthread_create
 {
-	size_t	i;
-	int		flag;
+	t_lst	*lst;
+	long	start_to_eat;
+	long	start_to_think;
 
-	if (!src)
-		return (-1);
-	if (dstsize > 0)
-		flag = 0;
-	else
-		flag = 1;
-	i = 0;
-	while (src[i] != '\0')
+	lst = (t_lst *)philo_arg;// why this is needed?
+	if ((start_to_eat = return_time()) < 0)
+		return (NULL);
+	if (lst->index % 2) // ?
+		usleep (200);
+	while (1)
 	{
-		if (i == dstsize - 1)
-		{
-			dst[i] = '\0';
-			flag = 1;
-		}
-		if (flag == 0)
-			dst[i] = src[i];
-		i++;
+		if ((start_to_eat = do_eat(lst, start_to_eat)) < 0)
+			return (NULL);
+		if (do_sleep(lst, start_to_eat) < 0)
+			return (NULL);
+		if ((start_to_think = return_time()) < 0)
+			return (NULL);
+		philo_putstatus(lst->index, start_to_think, PHILO_S_THINKING);
 	}
-	if (flag == 0)
-		dst[i] = '\0';
-	return (i);
+	return (NULL);
 }
