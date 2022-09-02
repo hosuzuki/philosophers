@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/01 17:45:46 by hos              ###   ########.fr        #
+#    Updated: 2022/09/02 17:30:46 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,21 +24,21 @@ endif
 
 SRCS	:= \
 	main.c \
-#	philo_check_dead.c \
+	save_argv.c \
+	utils.c \
+	ft_atol.c \
+	ft_isdigit.c \
+	init_lst.c \
+	free_all.c \
+	#	philo_check_dead.c \
 	philo_has_finished.c \
 	philo_mutex_destroy.c \
 	philo_putstatus.c \
 	do_sleep.c \
 	put_error.c \
-	return_time.c \
-	save_argv.c \
-	init_pthread.c \
-	free_all.c \
 	do_eat.c \
 	start_thread.c \
 	ft_memcpy.c \
-	ft_atol.c \
-	ft_isdigit.c \
 	ft_isspace.c \
 	ft_strlcat.c \
 	ft_strlcpy.c \

@@ -6,11 +6,16 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/08/30 14:39:02 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/02 12:58:18 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	ft_isspace(int c)
+{
+	return (c == ' ' || ('\t' <= c && c <= '\r'));
+}
 
 int	ft_atol(const char *str)
 {

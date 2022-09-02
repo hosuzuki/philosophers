@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/01 17:50:51 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/02 18:11:35 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,27 @@
 int	main(int argc, char **argv)
 {
 //	long	n_philo;
-	t_lst	*lst;
-	pthread_t	*p;
-	t_thrd	t;
+	//pthread_t	*p;
+	t_info	*info;
+	t_lst	*l;
 
-	if (save_argv(argc, argv, &lst) < 0)
+	if (save_argv(argc, argv, &info) < 0)
 		return (-1);
-	if (init_pthread(&t, &p, lst->n_philo) < 0)
-		return (free_all(&t, NULL, 1));
-	i = 0;
-	while (i < lst[0].n_philo)
-	{
-		pthread_create(&p[i], NULL, start_thread, &lst[i]);
-		i++;
+/*	printf("info->num_philo: %ld\n", info->num_philo);
+	printf("info->ms_die: %ld\n", info->ms_die);
+	printf("info->ms_eat: %ld\n", info->ms_eat);
+	printf("info->ms_sleep: %ld\n", info->ms_sleep);
+	printf("info->num_to_eat: %ld\n", info->num_to_eat);
+*/	
+	if (init_lst(&l, info) < 0)
+		return (-1);
+	printf("l[0].index: %ld\n", l[0].index);
+	printf("l[1].index: %ld\n", l[1].index);
+	printf("l[0]->mt.end_flag: %d\n", l[0].mt->end_flag);
+	printf("l[1]->mt.end_flag: %d\n", l[1].mt->end_flag);
+	if (start_simulation(l, l->info->num_philo);
+		return (-1);
 	}
+	free_all(info, l->mt, l);
 	return (0);
-/*
-	i = 0;
-	while (i < n_philo)
-		pthread_join(philo_pthread[i++], NULL);
-	philo_mutex_destroy(n_philo);
-	return (philo_free_ret(philo, philo_pthread, 1));
-*/
 }
