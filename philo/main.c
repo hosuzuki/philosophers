@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/02 18:11:35 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/02 19:56:42 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	main(int argc, char **argv)
 */	
 	if (init_lst(&l, info) < 0)
 		return (-1);
-	printf("l[0].index: %ld\n", l[0].index);
+/*	printf("l[0].index: %ld\n", l[0].index);
 	printf("l[1].index: %ld\n", l[1].index);
 	printf("l[0]->mt.end_flag: %d\n", l[0].mt->end_flag);
 	printf("l[1]->mt.end_flag: %d\n", l[1].mt->end_flag);
+*/
 	if (start_simulation(l, l->info->num_philo);
 		return (-1);
 	}
