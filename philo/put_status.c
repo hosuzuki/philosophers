@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_putstatus.c                                  :+:      :+:    :+:   */
+/*   put_status.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/08/31 22:34:49 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 09:13:18 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,27 @@ static void	cat_number(char *buf, long num)
 	}
 }
 
-void	philo_putstatus(long philo_index, long time_ms, int philo_status)
+void	put_status(t_lst *l, long time, int status)
 {
 	char	buf[256];
 
 	buf[0] = '\0';
-	cat_number(buf, time_ms);
+	cat_number(buf, time);
 	ft_strlcat(buf, " ", sizeof(buf));
-	cat_number(buf, philo_index + 1);
-	if (philo_status == PHILO_S_TAKENFORK)
+	cat_number(buf, l->index + 1);
+	if (status == ONE_FORK)
 		ft_strlcat(buf, " has taken a fork\n", sizeof(buf));
-	else if (philo_status == PHILO_S_EATING)
+	else if (status == EATING)
 		ft_strlcat(buf, " is eating\n", sizeof(buf));
-	else if (philo_status == PHILO_S_SLEEPING)
+	else if (status == SLEEPING)
 		ft_strlcat(buf, " is sleepgin\n", sizeof(buf));
-	else if (philo_status == PHILO_S_THINKING)
+	else if (status == THINKING)
 		ft_strlcat(buf, " is thinking\n", sizeof(buf));
-	else if (philo_status == PHILO_S_DEAD)
+	else if (status == DEAD)
 		ft_strlcat(buf, " died\n", sizeof(buf));
 	else
 		ft_strlcat(buf, " is in undefined status\n", sizeof(buf));
-	pthread_mutex_lock(&g_mutex_write);
+	pthread_mutex_lock(&(l->mt->mt_write));
 	write(1, buf, ft_strlen(buf));
-	pthread_mutex_unlock(&g_mutex_write);
+	pthread_mutex_unlock(&(l->mt->mt_write));
 }

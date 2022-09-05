@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/08/31 22:39:21 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 08:53:21 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,24 +91,24 @@ static int	ft_fork(t_lst *lst)
 	return (0);
 }
 
-long	do_eat(t_lst *lst, long time_start_eating)
+long	eat_task(t_lst *l, long time_eat)
 {
 	while (!ft_fork(lst))
 	{
-		if (philo_check_dead(lst, time_start_eating))
+		if (philo_check_dead(lst, time_eat))
 			return (-1);
 		usleep(PHILO_WHILE_INTERVAL_USEC);
 	}
-	if ((time_start_eating = return_time()) < 0)
+	if ((time_eat = return_time()) < 0)
 		return (-1);
-	philo_putstatus(lst->index, time_start_eating, PHILO_S_EATING);
-	while (!philo_has_finished(time_start_eating, lst->eat))
+	philo_putstatus(lst->index, time_eat, PHILO_S_EATING);
+	while (!philo_has_finished(time_eat, lst->eat))
 	{
-		if (philo_check_dead(lst, time_start_eating))
+		if (philo_check_dead(lst, time_eat))
 			return (-1);
 		usleep(PHILO_WHILE_INTERVAL_USEC);
 	}
 	if (finish_eating(lst))
 		return (-1);
-	return (time_start_eating);
+	return (time_eat);
 }

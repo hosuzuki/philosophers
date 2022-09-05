@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/02 17:50:09 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 09:08:46 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,14 @@ typedef struct	s_lst
 	t_mt *mt;
 } t_lst;
 
+//put_status.c
+void	put_status(t_lst *l, long time, int status);
+
+//start_simulation.c
+int	start_simulation(t_lst *l, long num_philo);
+
 //free_all.c
 int free_all(t_info *info, t_mt *mt, t_lst *l);
-
 
 //save_argv.c
 int	save_argv(int argc, char **argv, t_info **info);
@@ -75,10 +80,11 @@ int	init_lst(t_lst **l, t_info *info);
 int	put_error(const char *str, int ret);
 long	what_time(void);
 
-//ft_atol.c
+//ft_utils.c
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 int	ft_atol(const char *str);
-
-//ft_isdigit.c
 int	ft_isdigit(int c);
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 #endif
