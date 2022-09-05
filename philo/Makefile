@@ -6,13 +6,14 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/05 09:03:15 by hos              ###   ########.fr        #
+#    Updated: 2022/09/05 12:25:59 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= philo
 CC		:= gcc -pthread
-CFLAGS	:= -Wall -Wextra -Werror
+CFLAGS	:= -Wall -Wextra
+# -Werror=format-security
 RM		:= rm -f
 HEADERDIR	:=	.
 
@@ -28,10 +29,11 @@ SRCS	:= \
 	utils.c \
 	init_lst.c \
 	free_all.c \
-	start_simulation.c \
+	start_simulation_dev.c \
 	put_status.c \
 	ft_utils.c \
 #	ft_atol.c \
+	start_simulation.c \
 	ft_isdigit.c \
 #	ft_strlcat.c \
 	ft_strlen.c \

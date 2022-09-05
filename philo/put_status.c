@@ -6,17 +6,20 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 09:13:18 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 13:16:39 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	get_digit(long num)
+static int	count_num_digits(long num)
 {
 	int	digit;
 
-	digit = (num < 0) ? 2 : 1;
+	if (num < 0)
+		digit = 2;
+	else
+		digit = 1;
 	while (num >= 10L)
 	{
 		num /= 10L;
@@ -25,43 +28,82 @@ static int	get_digit(long num)
 	return (digit);
 }
 
-static void	cat_number(char *buf, long num)
+static void	digit_cat(char *ret, long num)
 {
 	int	digit;
 
-	while (*buf)
-		buf++;
-	digit = get_digit(num);
-	buf[digit] = '\0';
+	while (*ret)
+		ret++;
+	digit = count_num_digits(num);
+	ret[digit] = '\0';
 	while (digit > 0)
 	{
-		buf[digit - 1 ] = (char)(num % 10L) + '0';
+		ret[digit - 1] = (char)(num % 10L) + '0';
 		num /= 10;
 		digit--;
 	}
 }
 
+static int	message_len(int status)
+{
+	if (status == ONE_FORK)
+		return (18);
+	else if (status == EATING)
+		return (11);
+	else if (status == SLEEPING)
+		return (13);
+	else if (status == THINKING)
+		return (13);
+	else if (status == DEAD)
+		return (6);
+	return (0);
+}
+
+static void	put_message(char *ret, int status, long len)
+{
+	if (status == ONE_FORK)
+		ft_strlcat(ret, " has taken a fork\n", len + 1);
+	else if (status == EATING)
+		ft_strlcat(ret, " is eating\n", len + 1);
+	else if (status == SLEEPING)
+		ft_strlcat(ret, " is sleeping\n", len + 1);
+	else if (status == THINKING)
+		ft_strlcat(ret, " is thinking\n", len + 1);
+	else if (status == DEAD)
+		ft_strlcat(ret, " died\n", len + 1);
+//	else
+//		ft_strlcat(ret, " is in undefined status\n", sizeof(ret));
+	return ;
+}
+
+char	*create_str_to_put(t_lst *l, long time, int status)
+{
+	char	*ret;
+	long	len;
+
+	len = count_num_digits(time) + count_num_digits(l->index) + \
+		message_len(status) + 1;
+	ret = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ret)
+		return (NULL);
+	digit_cat(ret, time);
+	ft_strlcat(ret, " ", len + 1);
+	digit_cat(ret, l->index);
+	put_message(ret, status, len);
+	ret[len] = '\0';
+//	dprintf(STDERR_FILENO, ret);
+	return (ret);
+}
+
 void	put_status(t_lst *l, long time, int status)
 {
-	char	buf[256];
+	char	*ret;
 
-	buf[0] = '\0';
-	cat_number(buf, time);
-	ft_strlcat(buf, " ", sizeof(buf));
-	cat_number(buf, l->index + 1);
-	if (status == ONE_FORK)
-		ft_strlcat(buf, " has taken a fork\n", sizeof(buf));
-	else if (status == EATING)
-		ft_strlcat(buf, " is eating\n", sizeof(buf));
-	else if (status == SLEEPING)
-		ft_strlcat(buf, " is sleepgin\n", sizeof(buf));
-	else if (status == THINKING)
-		ft_strlcat(buf, " is thinking\n", sizeof(buf));
-	else if (status == DEAD)
-		ft_strlcat(buf, " died\n", sizeof(buf));
-	else
-		ft_strlcat(buf, " is in undefined status\n", sizeof(buf));
+	ret = create_str_to_put(l, time, status);
+	if (!ret)
+		return ;
 	pthread_mutex_lock(&(l->mt->mt_write));
-	write(1, buf, ft_strlen(buf));
+	write(1, ret, ft_strlen(ret));
 	pthread_mutex_unlock(&(l->mt->mt_write));
+	free (ret);
 }
