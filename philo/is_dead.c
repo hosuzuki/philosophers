@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 22:12:12 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 22:18:11 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	over_num_to_eat(t_lst *l)
 }
 */
 
-bool	is_finished(long time_start, long time_task)
+bool	task_is_finished(long time_start, long time_task)
 {
 	long time_now;
 
@@ -32,14 +32,14 @@ bool	is_finished(long time_start, long time_task)
 	return (true);
 }
 
-bool	is_end(t_lst *l, long time_eat)
+bool	is_end(t_lst *l, long last_meal)
 {
 	long	time_now;
 
 	if (l->mt->end_flag == 1)
 		return (true);
 	if ((time_now = what_time()) < 0 || \
-		time_now - time_eat > l->info->ms_die)
+		time_now - last_meal > l->info->ms_die)
 	{
 		pthread_mutex_lock(&(l->mt->mt_end_flag));
 		l->mt->end_flag = 1;

@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 22:09:49 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 22:18:19 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ long	eat_task(t_lst *l, long time_eat)
 //	if ((time_eat = what_time()) < 0)
 //		return (-1);
 //	put_status(lst->index, time_eat, EATING);
-	while (!is_finished(l->last_meal, l->info->ms_eat))
+	while (!task_is_finished(l->last_meal, l->info->ms_eat))
 	{
 		if (is_end(l, l->last_meal))
 			return (-1);

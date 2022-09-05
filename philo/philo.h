@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 22:12:33 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 22:17:09 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,11 @@ typedef struct	s_lst
 } t_lst;
 
 //sleep_task.c
-int	sleep_task(t_lst *l, long time_eat);
+int	sleep_task(t_lst *l, long last_meal);
 
-//is_dead.c
+//is_end.c
 bool	is_finished(long time_start, long time_task);
-bool	is_end(t_lst *l, long time_eat);
+bool	is_end(t_lst *l, long last_meal);
 
 //eat_task.c
 long	eat_task(t_lst *l, long time_eat);
