@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 09:15:15 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 17:19:10 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,13 @@ void	*life_of_philo(void *arg)
 		return (NULL);
 	while (1)
 	{
-//		if ((time_eat = eat_task(l, time_eat)) < 0)
-//			return (NULL);
-//		if (sleep_task(lst, time_eat) < 0)
-//			return (NULL);
+		if ((time_eat = eat_task(l, time_eat)) < 0)
+			return (NULL);
+		if (sleep_task(l, time_eat) < 0)
+			return (NULL);
 		if ((time_think = what_time()) < 0)
 			return (NULL);
 		put_status(l, time_think, THINKING);
-		if (l->index++ > l->info->num_philo)
-			break ;
 	}
 	return (NULL);
 }

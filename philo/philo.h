@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 09:08:46 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 22:12:33 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/time.h>
 # include <string.h>
 # include <stdio.h>
+# include <stdbool.h>
 
 # define INTERVAL	200
 
@@ -61,8 +62,18 @@ typedef struct	s_lst
 	t_mt *mt;
 } t_lst;
 
+//sleep_task.c
+int	sleep_task(t_lst *l, long time_eat);
+
+//is_dead.c
+bool	is_finished(long time_start, long time_task);
+bool	is_end(t_lst *l, long time_eat);
+
+//eat_task.c
+long	eat_task(t_lst *l, long time_eat);
+
 //put_status.c
-void	put_status(t_lst *l, long time, int status);
+int	put_status(t_lst *l, long time, int status);
 
 //start_simulation.c
 int	start_simulation(t_lst *l, long num_philo);

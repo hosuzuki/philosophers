@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/05 12:25:59 by hos              ###   ########.fr        #
+#    Updated: 2022/09/05 20:42:49 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,21 +32,11 @@ SRCS	:= \
 	start_simulation_dev.c \
 	put_status.c \
 	ft_utils.c \
-#	ft_atol.c \
+	eat_task.c \
+	is_dead.c \
+	sleep_task.c \
+	#	ft_atol.c \
 	start_simulation.c \
-	ft_isdigit.c \
-#	ft_strlcat.c \
-	ft_strlen.c \
-	#	philo_check_dead.c \
-	philo_has_finished.c \
-	philo_mutex_destroy.c \
-	do_sleep.c \
-	put_error.c \
-	do_eat.c \
-	start_thread.c \
-	ft_memcpy.c \
-	ft_isspace.c \
-	ft_strlcpy.c \
 
 # **************************************************************************** #
 

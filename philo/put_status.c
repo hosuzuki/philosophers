@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 13:16:39 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/05 22:06:08 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,15 +95,36 @@ char	*create_str_to_put(t_lst *l, long time, int status)
 	return (ret);
 }
 
-void	put_status(t_lst *l, long time, int status)
+void update_status(t_lst *l, long time, int status)
+{
+	(void)time;
+	if (status == EATING)
+	{
+//		l->last_meal = time;
+		l->eat_count++;
+	}
+	else if (status == ONE_FORK)
+		l->status = ONE_FORK;
+	else if (status == SLEEPING)
+		l->status = SLEEPING;
+	else if (status == THINKING)
+		l->status = THINKING;
+	else if (status == DEAD)
+		l->status = DEAD;
+	return ;
+}
+
+int	put_status(t_lst *l, long time, int status)
 {
 	char	*ret;
 
 	ret = create_str_to_put(l, time, status);
-	if (!ret)
-		return ;
+	if (!ret || l->mt->end_flag == 1)
+		return (-1);
 	pthread_mutex_lock(&(l->mt->mt_write));
 	write(1, ret, ft_strlen(ret));
 	pthread_mutex_unlock(&(l->mt->mt_write));
+	update_status(l, time, status);
 	free (ret);
+	return (0);
 }
