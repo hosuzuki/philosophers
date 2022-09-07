@@ -6,37 +6,15 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:12:40 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 13:17:38 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/06 12:08:52 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		ft_isdigit(int c)
+int	ft_isdigit(int c)
 {
 	return ('0' <= c && c <= '9');
-}
-
-int		ft_isspace(int c)
-{
-	return (c == ' ' || ('\t' <= c && c <= '\r'));
-}
-
-int			ft_atol(const char *str)
-{
-	long			sign;
-	unsigned long	abs;
-
-	sign = 1;
-	abs = 0;
-	while (ft_isspace(*str))
-		str++;
-	if (*str == '+' || *str == '-')
-		if (*(str++) == '-')
-			sign = -1;
-	while (ft_isdigit(*str))
-		abs = (abs * 10) + (*(str++) - '0');
-	return (sign * (long)abs);
 }
 
 size_t		ft_strlen(const char *s)
@@ -66,47 +44,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	dst[i] = '\0';
 	return (s_len);
 }
-
-
-/*
-
-size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	int		flag_reach_dstsize;
-
-	if (dstsize > 0)
-		flag_reach_dstsize = 0;
-	else
-		flag_reach_dstsize = 1;
-	i = 0;
-	while (src[i] != '\0')
-	{
-		if (i == dstsize - 1)
-		{
-			dst[dstsize - 1] = '\0';
-			flag_reach_dstsize = 1;
-		}
-		if (flag_reach_dstsize == 0)
-			dst[i] = src[i];
-		i++;
-	}
-	if (flag_reach_dstsize == 0)
-		dst[i] = '\0';
-	return (i);
-}
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-
-	i = 0;
-	while (dst[i] != '\0' && i < dstsize)
-		i++;
-	if (dst[i] == '\0' && i != dstsize)
-		return (ft_strlcpy(dst + i, src, dstsize - i) + i);
-	return (i + ft_strlen(src));
-}
-*/
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {

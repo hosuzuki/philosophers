@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/02 17:49:10 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/06 11:47:19 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	init_lst(t_lst **l, t_info *info)
 	{
 		(*l)[i].index = i + 1;
 		(*l)[i].status = THINKING;
-		(*l)[i].last_meal = what_time();
+		(*l)[i].last_meal = 0; //what_time();
 		(*l)[i].eat_count = 0;
 		(*l)[i].info = info;
 		(*l)[i++].mt = mt;

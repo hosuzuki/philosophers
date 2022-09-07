@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 22:17:09 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/07 14:36:08 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <stdio.h>
 # include <stdbool.h>
+# include <errno.h>
 
 # define INTERVAL	200
 
@@ -31,6 +32,7 @@ enum e_status
 	SLEEPING,
 	THINKING,
 	DEAD,
+	OVER_EAT_COUNT,
 };
 
 typedef struct	s_info
@@ -40,6 +42,7 @@ typedef struct	s_info
 	long		ms_eat;
 	long		ms_sleep;
 	long		num_to_eat;
+	int		*num_to_eat_flag;
 }	t_info;
 
 typedef struct	s_mt
@@ -66,14 +69,19 @@ typedef struct	s_lst
 int	sleep_task(t_lst *l, long last_meal);
 
 //is_end.c
-bool	is_finished(long time_start, long time_task);
+bool	task_is_finished(long time_start, long time_task);
 bool	is_end(t_lst *l, long last_meal);
+void	raise_end_flag(t_lst *l, int status);
+int	end_flag_checker(t_lst *l);
 
 //eat_task.c
 long	eat_task(t_lst *l, long time_eat);
 
 //put_status.c
 int	put_status(t_lst *l, long time, int status);
+
+//put_status2.c
+char	*create_str_to_put(t_lst *l, long time, int status);
 
 //start_simulation.c
 int	start_simulation(t_lst *l, long num_philo);
@@ -92,10 +100,13 @@ int	put_error(const char *str, int ret);
 long	what_time(void);
 
 //ft_utils.c
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-int	ft_atol(const char *str);
 int	ft_isdigit(int c);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+
+//ft_utils2.c
+int	ft_atol(const char *str);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif

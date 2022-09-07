@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/05 20:42:49 by hos              ###   ########.fr        #
+#    Updated: 2022/09/07 14:36:22 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,14 +29,14 @@ SRCS	:= \
 	utils.c \
 	init_lst.c \
 	free_all.c \
-	start_simulation_dev.c \
-	put_status.c \
-	ft_utils.c \
-	eat_task.c \
-	is_dead.c \
-	sleep_task.c \
-	#	ft_atol.c \
 	start_simulation.c \
+	put_status.c \
+	put_status2.c \
+	ft_utils.c \
+	ft_utils2.c \
+	eat_task.c \
+	is_end.c \
+	sleep_task.c \
 
 # **************************************************************************** #
 

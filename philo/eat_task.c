@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 22:18:19 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/07 14:51:29 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,40 +25,62 @@ static void	unlock_forks(t_lst *l, long index, long num_philo)
 }
 */
 
-static int	pickup_forks(t_lst *l, long index, long num_philo)
+static int	pickup_left_fork(t_lst *l, long index, long num_philo)
 {
 	long	time_one_fork;
 
 //	lock_forks(l, i, lst->n_philo);
-	if (l->status == THINKING) 
-	{
+//	if (l->status == THINKING) 
+//	{
 		pthread_mutex_lock(&(l->mt->mt_forks[index - 1]));
 		time_one_fork = what_time();
-		put_status(l, time_one_fork, ONE_FORK);
+		if (put_status(l, time_one_fork, ONE_FORK) < 0)
+		{
+			pthread_mutex_unlock(&(l->mt->mt_forks[index % num_philo]));
+			return (1);
+		}
 		pthread_mutex_unlock(&(l->mt->mt_forks[index - 1]));
-		return (1);
-	}
-	else if (l->status == ONE_FORK)
-	{
-		pthread_mutex_lock(&(l->mt->mt_forks[index % num_philo]));
-		l->last_meal = what_time();
-		put_status(l, l->last_meal, EATING);
-		pthread_mutex_unlock(&(l->mt->mt_forks[index % num_philo]));
-		return (0);
-	}
+//		return (1);
+//	}
 //	unlock_forks(l, i, lst->n_philo);
 	return (0);
 }
 
-long	eat_task(t_lst *l, long time_eat)
+static int	pickup_right_fork(t_lst *l, long index, long num_philo)
 {
-	while (pickup_forks(l, l->index, l->info->num_philo))
+	//long	eat_time;
+
+//	else if (l->status == ONE_FORK)
+//	{
+		if (l->info->num_philo == 1)
+			return (1);
+		pthread_mutex_lock(&(l->mt->mt_forks[index % num_philo]));
+		l->last_meal = what_time();
+		if (put_status(l, l->last_meal, EATING) < 0)
+		{
+			pthread_mutex_unlock(&(l->mt->mt_forks[index % num_philo]));
+			return (1);
+		}
+		pthread_mutex_unlock(&(l->mt->mt_forks[index % num_philo]));
+		return (0);
+//	}
+//	unlock_forks(l, i, lst->n_philo);
+//	return (0);
+}
+long	eat_task(t_lst *l, long last_meal)
+{
+	while (pickup_left_fork(l, l->index, l->info->num_philo))
 	{
-		if (is_end(l, time_eat))
+		if (is_end(l, last_meal))
 			return (-1);
 		usleep(INTERVAL);
 	}
-//	if ((time_eat = what_time()) < 0)
+	while (pickup_right_fork(l, l->index, l->info->num_philo))
+	{
+		if (is_end(l, last_meal))
+			return (-1);
+		usleep(INTERVAL);
+	}//	if ((time_eat = what_time()) < 0)
 //		return (-1);
 //	put_status(lst->index, time_eat, EATING);
 	while (!task_is_finished(l->last_meal, l->info->ms_eat))

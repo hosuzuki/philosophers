@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 22:11:13 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/06 15:36:11 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	destroy_all_mutex(t_lst *l, long num_philo)
 	long	i;
 
 	pthread_mutex_destroy(&(l->mt->mt_end_flag));
-	pthread_mutex_destroy(&(l->mt->mt_write));
+//	if (l->mt->end_flag == OVER_EAT_COUNT)
+		pthread_mutex_destroy(&(l->mt->mt_write));
 	i = 0;
 	while (i < num_philo)
 		pthread_mutex_destroy(&(l->mt->mt_forks[i++]));
@@ -34,6 +35,7 @@ void	*life_of_philo(void *arg)
 		usleep (200);
 	if ((l->last_meal = what_time()) < 0)
 		return (NULL);
+//	long i = 0;
 	while (1)
 	{
 	//	if ((time_eat = eat_task(l, l_last_meal)) < 0)
@@ -45,8 +47,8 @@ void	*life_of_philo(void *arg)
 			return (NULL);
 		if (put_status(l, time_think, THINKING) < 0)
 			return (NULL);
-		if (l->index++ >= l->info->num_philo)
-			return (NULL) ;
+//		if (i++ >= l->info->num_philo)
+//			return (NULL) ;
 	}
 	return (NULL);
 }
@@ -62,5 +64,6 @@ int	start_simulation(t_lst *l, long num_philo)
 	i = 0;
 	life_of_philo(&l[i]);
 	destroy_all_mutex(l, num_philo);
+	free (philos); //is this necessary?
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/02 17:51:25 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/06 11:54:51 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@
 int free_all(t_info *info, t_mt *mt, t_lst *l)
 {
 	if (info)
+	{
+		if (info->num_to_eat_flag)
+			free (info->num_to_eat_flag);
 		free (info);
+	}
 	if (mt)
 	{
 		free(mt->forks);

@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/05 17:19:10 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/06 13:01:51 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ void	*life_of_philo(void *arg)
 			return (NULL);
 		if ((time_think = what_time()) < 0)
 			return (NULL);
-		put_status(l, time_think, THINKING);
+		if (put_status(l, time_think, THINKING) < 0)
+			return (NULL);
 	}
 	return (NULL);
 }
