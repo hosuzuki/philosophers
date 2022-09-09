@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/07 14:51:29 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/09 15:05:44 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,24 @@ long	eat_task(t_lst *l, long last_meal)
 {
 	while (pickup_left_fork(l, l->index, l->info->num_philo))
 	{
+//		printf("in pickup left\n");
 		if (is_end(l, last_meal))
 			return (-1);
 		usleep(INTERVAL);
 	}
+	usleep(INTERVAL);
+	//printf("out pickup left\n");
 	while (pickup_right_fork(l, l->index, l->info->num_philo))
 	{
+	//	printf("in pickup right\n");
 		if (is_end(l, last_meal))
 			return (-1);
 		usleep(INTERVAL);
 	}//	if ((time_eat = what_time()) < 0)
 //		return (-1);
 //	put_status(lst->index, time_eat, EATING);
+//	printf("out pickup right\n");
+	usleep(INTERVAL);
 	while (!task_is_finished(l->last_meal, l->info->ms_eat))
 	{
 		if (is_end(l, l->last_meal))
@@ -91,5 +97,7 @@ long	eat_task(t_lst *l, long last_meal)
 	}
 //	if (finish_eating(l))
 //		return (-1);
+	usleep(INTERVAL);
+//	printf("task is finished\n");
 	return (0);
 }
