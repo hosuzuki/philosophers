@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/07 14:36:08 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 17:56:38 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdbool.h>
 # include <errno.h>
 
-# define INTERVAL	200
+# define INTERVAL	1000
 
 enum e_status
 {
@@ -69,7 +69,7 @@ typedef struct	s_lst
 int	sleep_task(t_lst *l, long last_meal);
 
 //is_end.c
-bool	task_is_finished(long time_start, long time_task);
+bool	task_is_finished(long time_start, long duration);
 bool	is_end(t_lst *l, long last_meal);
 void	raise_end_flag(t_lst *l, int status);
 int	end_flag_checker(t_lst *l);
