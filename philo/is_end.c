@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 16:15:46 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 17:56:17 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ int	end_flag_checker(t_lst *l)
 	return (0);
 }
 
-bool	task_is_finished(long time_start, long time_task)
+bool	task_is_finished(long time_start, long duration)
 {
 	long time_now;
 
 	if ((time_now = what_time()) < 0)
 		return (false);
-	if (time_now - time_start >= time_task)
+//	printf("time_now - time_start: %ld\n", time_now - time_start);
+	if (time_now - time_start < duration)
 		return (false);
 	return (true);
 }
