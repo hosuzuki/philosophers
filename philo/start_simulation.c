@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 13:01:51 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:17:34 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@ static void	destroy_all_mutex(t_lst *l, long num_philo)
 void	*life_of_philo(void *arg) 
 {
 	t_lst	*l;
-	long	time_eat;
 	long	time_think;
 
 	l = (t_lst *)arg;
 	if (l->index % 2)
 		usleep (200);
-	if ((time_eat = what_time()) < 0)
+	if ((l->last_meal = what_time()) < 0)
 		return (NULL);
 	while (1)
 	{
-		if ((time_eat = eat_task(l, time_eat)) < 0)
+		if ((eat_task(l, l->last_meal)) < 0)
 			return (NULL);
-		if (sleep_task(l, time_eat) < 0)
+		if (sleep_task(l, l->last_meal) < 0)
 			return (NULL);
 		if ((time_think = what_time()) < 0)
 			return (NULL);
