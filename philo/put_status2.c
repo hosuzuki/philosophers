@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:42 by hos               #+#    #+#             */
-/*   Updated: 2022/09/07 14:36:47 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:46:32 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ static void	put_message(char *ret, int status, long len)
 		ft_strlcat(ret, " is thinking\n", len + 1);
 	else if (status == DEAD)
 		ft_strlcat(ret, " died\n", len + 1);
-//	else
-//		ft_strlcat(ret, " is in undefined status\n", sizeof(ret));
 	return ;
 }
 
@@ -91,6 +89,5 @@ char	*create_str_to_put(t_lst *l, long time, int status)
 	digit_cat(ret, l->index);
 	put_message(ret, status, len);
 	ret[len] = '\0';
-//	dprintf(STDERR_FILENO, ret);
 	return (ret);
 }

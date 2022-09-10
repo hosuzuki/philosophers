@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 11:47:19 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:35:37 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static int	init_forks(t_mt *mt, long num_philo)
 		free(mt);
 		return (-1);
 	}
-	mt->mt_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * num_philo);
+	mt->mt_forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) \
+		* num_philo);
 	if (!mt->mt_forks)
 	{
 		free(mt->forks);
@@ -73,7 +74,7 @@ static int	init_mt(t_mt **mt, long num_philo)
 		return (-1);
 	(*mt)->end_flag = 0;
 	if (init_forks(*mt, num_philo) < 0)
-		return (-1); 
+		return (-1);
 	if (activate_mutex(*mt, num_philo) < 0)
 		return (-1);
 	return (0);
@@ -94,7 +95,7 @@ int	init_lst(t_lst **l, t_info *info)
 	{
 		(*l)[i].index = i + 1;
 		(*l)[i].status = THINKING;
-		(*l)[i].last_meal = 0; //what_time();
+		(*l)[i].last_meal = 0;
 		(*l)[i].eat_count = 0;
 		(*l)[i].info = info;
 		(*l)[i++].mt = mt;

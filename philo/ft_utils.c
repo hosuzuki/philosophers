@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:12:40 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 12:08:52 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:34:14 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	ft_isdigit(int c)
 	return ('0' <= c && c <= '9');
 }
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while (*(s++))

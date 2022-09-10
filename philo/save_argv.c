@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 15:15:20 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:47:53 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	isnumber(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (str[i])
 		if (!ft_isdigit(str[i++]))
@@ -25,10 +25,10 @@ static int	isnumber(char *str)
 
 static int	error_checker(int argc, char **argv)
 {
-	int	i;
+	int		i;
 	long	num_philo;
 	long	num_to_eat;
-	
+
 	if (argc != 5 && argc != 6)
 		return (put_error("Invalid Argument", -1));
 	i = 1;
@@ -64,8 +64,9 @@ int	save_argv(int argc, char **argv, t_info **info)
 		(*info)->num_to_eat = ft_atol(argv[5]);
 	else
 		(*info)->num_to_eat = -1;
-	(*info)->num_to_eat_flag = (int *)ft_calloc(sizeof(int), (*info)->num_philo);
-	if(!(*info)->num_to_eat_flag)
-		return(free_all(*info, NULL, NULL));
+	(*info)->num_to_eat_flag = (int *)ft_calloc(sizeof(int), \
+		(*info)->num_philo);
+	if (!(*info)->num_to_eat_flag)
+		return (free_all(*info, NULL, NULL));
 	return (0);
 }

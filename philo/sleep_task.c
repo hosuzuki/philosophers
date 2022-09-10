@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:07:39 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:48:33 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ int	sleep_task(t_lst *l, long last_meal)
 {
 	long	time_sleep;
 
-	if ((time_sleep = what_time()) < 0)
+	time_sleep = what_time();
+	if (time_sleep < 0)
 		return (-1);
 	if (put_status(l, time_sleep, SLEEPING) < 0)
 		return (-1);

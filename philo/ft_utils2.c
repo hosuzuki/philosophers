@@ -6,18 +6,18 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:56:38 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 12:10:13 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:34:30 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int		ft_isspace(int c)
+static int	ft_isspace(int c)
 {
 	return (c == ' ' || ('\t' <= c && c <= '\r'));
 }
 
-int			ft_atol(const char *str)
+int	ft_atol(const char *str)
 {
 	long			sign;
 	unsigned long	abs;

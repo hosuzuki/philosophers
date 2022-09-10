@@ -6,24 +6,13 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/06 11:54:51 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/10 18:33:46 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*int	free_all(t_thrd *t, pthread_t *p, int ret)
-{
-	free (p);
-	free (t->fork);
-	free (t->mt_fork);
-	free (t->fork_rsvd); // needed?
-//	free (t);
-//	what about lst?
-	return (ret);
-}
-*/
-int free_all(t_info *info, t_mt *mt, t_lst *l)
+int	free_all(t_info *info, t_mt *mt, t_lst *l)
 {
 	if (info)
 	{
