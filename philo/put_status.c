@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:45:09 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/11 16:15:44 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,20 @@ int	put_status(t_lst *l, long time, int status)
 	char	*ret;
 
 	ret = create_str_to_put(l, time, status);
-	if (!ret || end_flag_checker(l) == 1)
+	if (!ret)
 		return (-1);
+//	if (is_end(l) == true)
+	usleep(500);
+	if (is_end_flag_up(l) == true)
+	{
+		free (ret);
+		return (-1);
+	}
 	pthread_mutex_lock(&(l->mt->mt_write));
 	write(1, ret, ft_strlen(ret));
 	pthread_mutex_unlock(&(l->mt->mt_write));
+	free (ret);
 	if (update_status(l, status) == -1)
 		return (-1);
-	free (ret);
 	return (0);
 }

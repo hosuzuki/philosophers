@@ -6,19 +6,22 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/07 14:36:22 by hos              ###   ########.fr        #
+#    Updated: 2022/09/11 12:09:09 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= philo
-CC		:= gcc -pthread
-CFLAGS	:= -Wall -Wextra
-# -Werror=format-security
+CC		:= gcc -pthread 
+CFLAGS	:= -Wall -Wextra -Werror
 RM		:= rm -f
 HEADERDIR	:=	.
 
 ifeq ($(DEBUG), 1)
 CFLAGS	+= -g
+endif
+
+ifeq ($(DEBUG), 2)
+CFLAGS	+= -fsanitize=thread 
 endif
 
 # **************************************************************************** #

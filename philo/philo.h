@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:42:11 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/11 15:06:44 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,17 @@ typedef struct s_lst
 }	t_lst;
 
 //sleep_task.c
-int		sleep_task(t_lst *l, long last_meal);
+int		sleep_task(t_lst *l);
 
 //is_end.c
+bool	is_end_flag_up(t_lst *l);
 bool	task_is_finished(long time_start, long duration);
-bool	is_end(t_lst *l, long last_meal);
+bool	is_end(t_lst *l);
 void	raise_end_flag(t_lst *l, int status);
 int		end_flag_checker(t_lst *l);
 
 //eat_task.c
-long	eat_task(t_lst *l, long time_eat);
+long	eat_task(t_lst *l);
 
 //put_status.c
 int		put_status(t_lst *l, long time, int status);
@@ -106,6 +107,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 //ft_utils2.c
 int		ft_atol(const char *str);
-void	*ft_calloc(size_t count, size_t size);
+//void	*ft_calloc(size_t count, size_t size);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:56:38 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:34:30 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/11 12:42:12 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_atol(const char *str)
 	return (sign * (long)abs);
 }
 
-static void	*ft_memset(void *b, int c, size_t len)
+/*static void	*ft_memset(void *b, int c, size_t len)
 {
 	size_t			i;
 	unsigned char	*dest;
@@ -76,3 +76,4 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_memset(res, 0, sum);
 	return (res);
 }
+*/

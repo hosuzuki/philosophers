@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 14:36:42 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:46:32 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/11 15:14:02 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,21 @@ static int	count_num_digits(long num)
 	return (digit);
 }
 
-static void	digit_cat(char *ret, long num)
+static void	digit_cat(char *ret, long time, int first_time)
 {
 	int	digit;
 
-	while (*ret)
-		ret++;
-	digit = count_num_digits(num);
+	if (first_time != 1)
+	{
+		while (*ret)
+			ret++;
+	}
+	digit = count_num_digits(time);
 	ret[digit] = '\0';
 	while (digit > 0)
 	{
-		ret[digit - 1] = (char)(num % 10L) + '0';
-		num /= 10;
+		ret[digit - 1] = (char)(time % 10L) + '0';
+		time /= 10;
 		digit--;
 	}
 }
@@ -84,9 +87,9 @@ char	*create_str_to_put(t_lst *l, long time, int status)
 	ret = (char *)malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		return (NULL);
-	digit_cat(ret, time);
+	digit_cat(ret, time, 1);
 	ft_strlcat(ret, " ", len + 1);
-	digit_cat(ret, l->index);
+	digit_cat(ret, l->index, 2);
 	put_message(ret, status, len);
 	ret[len] = '\0';
 	return (ret);

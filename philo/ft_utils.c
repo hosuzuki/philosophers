@@ -6,11 +6,32 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:12:40 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:34:14 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/11 12:55:22 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+/*
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	size_t			i;
+	unsigned char	*d;
+	unsigned char	*s;
+
+	if (!dst && !src)
+		return (NULL);
+	i = 0;
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
+	while (i < n)
+	{
+		d[i] = s[i];
+		i++;
+	}
+	return (dst);
+}
+*/
 
 int	ft_isdigit(int c)
 {
