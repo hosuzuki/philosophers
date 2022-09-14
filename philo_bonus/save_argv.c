@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 12:53:56 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/14 22:56:20 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ static int	isnumber(char *str)
 
 	i = 0;
 	while (str[i])
+	{
 		if (!ft_isdigit(str[i++]))
 			return (0);
+	}
 	return (1);
 }
 
@@ -30,21 +32,21 @@ static int	error_checker(int argc, char **argv)
 	long	num_to_eat;
 
 	if (argc != 5 && argc != 6)
-		return (put_error("Invalid Argument", -1));
+		put_error_and_exit("Invalid Argument", -1);
 	i = 1;
 	while (argv[i])
 	{
 		if (!isnumber(argv[i++]))
-			return (put_error("Invalid Argument", -1));
+			put_error_and_exit("Invalid Argument", -1);
 	}
 	num_philo = ft_atol(argv[1]);
 	if (num_philo < 1)
-		return (put_error("Invalid Argument", -1));
+		put_error_and_exit("Invalid Argument", -1);
 	if (argc == 6)
 	{
 		num_to_eat = ft_atol(argv[5]);
 		if (num_to_eat < 1)
-			return (put_error("Invalid Argument", -1));
+			put_error_and_exit("Invalid Argument", -1);
 	}
 	return (0);
 }
@@ -64,9 +66,5 @@ int	save_argv(int argc, char **argv, t_info **info)
 		(*info)->num_to_eat = ft_atol(argv[5]);
 	else
 		(*info)->num_to_eat = -1;
-	(*info)->num_to_eat_flag = (int *)malloc(sizeof(int) * \
-		(*info)->num_philo);
-	if (!(*info)->num_to_eat_flag)
-		return (free_all(*info, NULL, NULL));
 	return (0);
 }

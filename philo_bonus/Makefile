@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/13 15:43:37 by hos              ###   ########.fr        #
+#    Updated: 2022/09/14 22:48:44 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,17 +29,12 @@ endif
 SRCS	:= \
 	main.c \
 	save_argv.c \
-	utils.c \
 	init_lst.c \
-	free_all.c \
 	start_simulation.c \
-	put_status.c \
-	put_status2.c \
-	ft_utils.c \
-	ft_utils2.c \
 	eat_task.c \
-	is_end.c \
 	sleep_task.c \
+	utils.c \
+	ft_utils.c \
 
 # **************************************************************************** #
 

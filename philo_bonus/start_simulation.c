@@ -6,72 +6,89 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/13 16:37:27 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/14 22:52:01 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	destroy_all_sem(t_lst *l)
+static void	wait_and_destroy_sem(t_lst l, pid_t *pids, long num_philo)
 {
-	sem_close(l->sem->fork);
-	sem_close(l->sem->sem_end_flag);
-	sem_close(l->sem->sem_write);
-	sem_unlink(SEM_FORK);
-	sem_unlink(SEM_END_FLAG);
+	long	i;
+	int		status;
+
+	i = 0;
+	while (i < num_philo)
+	{
+		waitpid(-1, &status, 0);
+		if (WEXITSTATUS(status) == 1 || WEXITSTATUS(status) == -1)
+		{
+			i = 0;
+			while (i < num_philo)
+				kill(pids[i++], SIGINT);
+			break;
+		}
+		i++;
+	}
+	sem_close(l.sem->fork);
+	sem_close(l.sem->sem_write);
+	sem_unlink(SEM_NAME);
 	sem_unlink(SEM_WRITE);
 }
 
-
-void	*life_of_philo(t_lst *l)
+void	*life_of_philo(t_lst *l) // doesn't have to be * as return
 {
-//	t_lst	*l;
-	long	time_think;
+	long	now;
 
-//	l = (t_lst *)arg;
-//	if (l->index % 2)
-//		usleep (2500);
 	l->last_meal = what_time();
 	if (l->last_meal < 0)
 		return (NULL);
 	while (1)
 	{
 		if (eat_task(l) < 0)
-			return (test(l, "eat"));
-		if (sleep_task(l) < 0)
-			return (test(l, "sleep"));
-		time_think = what_time();
-		if (time_think < 0)
 			return (NULL);
-		if (put_status(l, time_think, THINKING) < 0)
-			return (test(l, "think"));
+		if (sleep_task(l) < 0)
+			return (NULL);
+		now = what_time();
+		if (now < 0)
+			return (NULL);
+		sem_wait(l->sem->sem_write);
+		printf("%ld %ld is thinking\n", now, l->index);
+		sem_post(l->sem->sem_write);
 	}
 	return (NULL);
 }
 
+static pid_t create_process(t_lst l)
+{
+	pid_t	ret;
+	
+	ret = fork();
+	if (ret < 0)
+		put_error_and_exit("fork error", -1);
+	else if (ret == 0)
+	{
+		life_of_philo(&l);
+		exit (0); // is this correct?
+	}
+	return (ret);
+}
+
 int	start_simulation(t_lst *l, long num_philo)
 {
-	int		status;
 	long	i;
-	long	j;
-	pid_t	p;
+	pid_t	*pids;
 
+	pids = malloc(sizeof(pid_t) * num_philo);
+	if (!pids)
+		return (free_all(l->info, l->sem, l));
 	i = 0;
 	while (i < num_philo)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			life_of_philo(&l[i++]);
-			exit (0);
-		}
+		pids[i] = create_process(l[i]);
+		i++;
 	}
-	j = 0;
-	while (j < num_philo)
-	{
-		waitpid(-1, &status, 0);
-		j++;
-	}
-	destroy_all_sem(l);
+	wait_and_destroy_sem(l[0], pids, num_philo);
+	free (pids);
 	return (0);
 }

@@ -6,68 +6,77 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/13 16:40:41 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/14 22:54:34 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	pickup_left_fork(t_lst *l, long index)
+static void	*death_handler(void *arg)
 {
-	long	time_one_fork;
+	t_lst *l;
+	long	tmp;
 
-	sem_wait(fork);
-	time_one_fork = what_time();
-	if (put_status(l, time_one_fork, ONE_FORK) < 0)
+	l = (t_lst *)arg;
+	tmp = l->last_meal;
+	while (what_time() - l->last_meal <= l->info->ms_die)
 	{
-		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
-		return (-1);
+		if ( tmp != l->last_meal)
+			return (NULL);
+		usleep(200);
 	}
-	return (0);
+	tmp = what_time();
+	if (tmp == -1)
+		put_error_and_exit("what_time", -1);
+	sem_wait(l->sem->sem_write);
+	printf("%ld %ld died\n", tmp, l->index);
+	exit(1);
+	return (NULL);
 }
 
-static int	pickup_right_fork(t_lst *l, long index, long num_philo)
+static void	activate_death_watcher(t_lst *l)
 {
-	if (l->info->num_philo == 1)
-	{
-		while (!is_end(l))
-			usleep (INTERVAL);
-		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
+	pthread_t tmp;
+
+	pthread_create(&tmp, NULL, death_handler, l);
+	pthread_detach(tmp);
+}
+
+int	pickup_forks(t_lst *l)
+{
+	long now;
+
+	activate_death_watcher(l);
+	sem_wait(l->sem->fork);
+	now = what_time();
+	if (now == -1)
 		return (-1);
-	}
-	if (is_end(l))
-	{
-		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
-		return (-1);
-	}
-	pthread_mutex_lock(&(l->mt->mt_forks[index % num_philo]));
+	sem_wait(l->sem->sem_write);
+	printf("%ld %ld has taken a fork\n", now, l->index);
+	sem_post(l->sem->sem_write);
+	sem_wait(l->sem->fork);
 	l->last_meal = what_time();
-	if (put_status(l, l->last_meal, EATING) < 0)
-	{
-		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
-		pthread_mutex_unlock(&(l->mt->mt_forks[l->index % l->info->num_philo]));
+	if (l->last_meal == -1)
 		return (-1);
-	}
+	sem_wait(l->sem->sem_write);
+	printf("%ld %ld is eating\n", l->last_meal, l->index);
+	sem_post(l->sem->sem_write);
 	return (0);
 }
 
 long	eat_task(t_lst *l)
 {
-	if (pickup_left_fork(l, l->index) < 0)
-			return (-1);
-	if (pickup_right_fork(l, l->index, l->info->num_philo) < 0)
+	if (pickup_forks(l) < 0)
 		return (-1);
 	while (!task_is_finished(l->last_meal, l->info->ms_eat))
-	{
-		if (is_end(l))
-		{
-			pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
-			pthread_mutex_unlock(&(l->mt->mt_forks[l->index % l->info->num_philo]));
-			return (-1);
-		}
 		usleep(INTERVAL);
+	sem_post(l->sem->fork);
+	sem_post(l->sem->fork);
+	if (l->info->num_to_eat != -1)
+	{
+		l->info->num_to_eat--;
+		if (l->info->num_to_eat == 0)
+			exit(0);
 	}
-	pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
-	pthread_mutex_unlock(&(l->mt->mt_forks[l->index % l->info->num_philo]));
 	return (0);
 }
