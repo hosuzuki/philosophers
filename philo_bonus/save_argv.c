@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/14 22:56:20 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/14 23:10:31 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ static int	error_checker(int argc, char **argv)
 
 int	save_argv(int argc, char **argv, t_info **info)
 {
-	if (error_checker(argc, argv) < 0)
-		return (-1);
+	error_checker(argc, argv);
 	*info = (t_info *)malloc(sizeof(t_info));
 	if (!*info)
-		return (-1);
+		put_error_and_exit("malloc", -1);
 	(*info)->num_philo = ft_atol(argv[1]);
 	(*info)->ms_die = ft_atol(argv[2]);
 	(*info)->ms_eat = ft_atol(argv[3]);

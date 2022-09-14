@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/14 22:54:15 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/14 23:33:39 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 
 # define SEM_NAME "/name"
 # define SEM_WRITE "/write"
-
 # define INTERVAL 1000
 
 typedef struct s_info
@@ -77,7 +76,7 @@ int		free_all(t_info *info, t_sem *sem, t_lst *l);
 bool	task_is_finished(long time_start, long duration);
 
 //ft_utils.c
-int	ft_isdigit(int c);
-int	ft_atol(const char *str);
+int		ft_isdigit(int c);
+int		ft_atol(const char *str);
 
 #endif
