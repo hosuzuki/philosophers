@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:38:31 by hos              ###   ########.fr       */
+/*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
+/*   Updated: 2022/09/02 15:56:41 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long	what_time(void)
 {
-	t_info	*info;
-	t_lst	*l;
+	struct timeval	t;
 
-	if (save_argv(argc, argv, &info) < 0)
+	if (gettimeofday(&t, NULL))
 		return (-1);
-	if (init_lst(&l, info) < 0)
-		return (-1);
-	if (start_simulation(l, l->info->num_philo) < 0)
-		return (-1);
-	free_all(info, l->mt, l);
-	return (0);
+	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+}
+
+int	put_error(const char *str, int ret)
+{
+	printf("ERROR: %s\n", str);
+	return (ret);
 }

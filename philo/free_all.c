@@ -1,28 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:38:31 by hos              ###   ########.fr       */
+/*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
+/*   Updated: 2022/09/10 18:33:46 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	free_all(t_info *info, t_mt *mt, t_lst *l)
 {
-	t_info	*info;
-	t_lst	*l;
-
-	if (save_argv(argc, argv, &info) < 0)
-		return (-1);
-	if (init_lst(&l, info) < 0)
-		return (-1);
-	if (start_simulation(l, l->info->num_philo) < 0)
-		return (-1);
-	free_all(info, l->mt, l);
-	return (0);
+	if (info)
+	{
+		if (info->num_to_eat_flag)
+			free (info->num_to_eat_flag);
+		free (info);
+	}
+	if (mt)
+	{
+		free(mt->forks);
+		free(mt->mt_forks);
+		free (mt);
+	}
+	if (l)
+		free (l);
+	return (-1);
 }

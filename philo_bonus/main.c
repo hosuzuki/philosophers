@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:38:31 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/14 23:05:32 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ int	main(int argc, char **argv)
 		return (-1);
 	if (start_simulation(l, l->info->num_philo) < 0)
 		return (-1);
-	free_all(info, l->mt, l);
+	free_all(info, l->sem, l);
 	return (0);
 }

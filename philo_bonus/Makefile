@@ -6,11 +6,11 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/11 12:09:09 by hos              ###   ########.fr        #
+#    Updated: 2022/09/14 22:48:44 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	:= philo
+NAME	:= philo_bonus
 CC		:= gcc -pthread 
 CFLAGS	:= -Wall -Wextra -Werror
 RM		:= rm -f
@@ -29,24 +29,16 @@ endif
 SRCS	:= \
 	main.c \
 	save_argv.c \
-	utils.c \
 	init_lst.c \
-	free_all.c \
 	start_simulation.c \
-	put_status.c \
-	put_status2.c \
-	ft_utils.c \
-	ft_utils2.c \
 	eat_task.c \
-	is_end.c \
 	sleep_task.c \
+	utils.c \
+	ft_utils.c \
 
 # **************************************************************************** #
 
 OBJS	:= $(SRCS:%.c=%.o)
-#HEADERS	:= \
-	philo.h \
-	philo_utils.h \
 
 OBJDIR	= objs/
 OBJS	= $(patsubst %.c,$(OBJDIR)%.o, $(notdir $(SRCS)))
@@ -69,13 +61,7 @@ $(NAME): $(OBJDIR) $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $@
 	@printf "$(YE)&&& Linked [$(CC) $(LDFLAGS)] &&&\n--- $(NAME)$(RC)\n"
 
-#$(CC) $(OBJS) $(addprefix -I,$(HEADERDIR)) -o $(NAME)
-#.c.o:
-#	$(CC) $(CFLAGS) -c $< -o $@
-
-#.SUFFIXES: .o .c
-
--include $(DEPS)
+#-include $(DEPS)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
@@ -97,7 +83,3 @@ re: fclean all
 .PHONY : all clean fclean re
 
 # **************************************************************************** #
-
-
-
-

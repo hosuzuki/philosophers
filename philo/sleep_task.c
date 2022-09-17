@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sleep_task.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:38:31 by hos              ###   ########.fr       */
+/*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
+/*   Updated: 2022/09/11 13:34:21 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	sleep_task(t_lst *l)
 {
-	t_info	*info;
-	t_lst	*l;
+	long	time_sleep;
 
-	if (save_argv(argc, argv, &info) < 0)
+	time_sleep = what_time();
+	if (time_sleep < 0)
 		return (-1);
-	if (init_lst(&l, info) < 0)
+	if (put_status(l, time_sleep, SLEEPING) < 0)
 		return (-1);
-	if (start_simulation(l, l->info->num_philo) < 0)
-		return (-1);
-	free_all(info, l->mt, l);
+	while (!task_is_finished(time_sleep, l->info->ms_sleep))
+	{
+		if (is_end(l))
+			return (-1);
+		usleep(INTERVAL);
+	}
 	return (0);
 }

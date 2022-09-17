@@ -1,28 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:38:31 by hos              ###   ########.fr       */
+/*   Created: 2022/09/06 11:56:38 by hos               #+#    #+#             */
+/*   Updated: 2022/09/14 22:43:34 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+int	ft_isdigit(int c)
 {
-	t_info	*info;
-	t_lst	*l;
+	return ('0' <= c && c <= '9');
+}
 
-	if (save_argv(argc, argv, &info) < 0)
-		return (-1);
-	if (init_lst(&l, info) < 0)
-		return (-1);
-	if (start_simulation(l, l->info->num_philo) < 0)
-		return (-1);
-	free_all(info, l->mt, l);
-	return (0);
+static int	ft_isspace(int c)
+{
+	return (c == ' ' || ('\t' <= c && c <= '\r'));
+}
+
+int	ft_atol(const char *str)
+{
+	long			sign;
+	unsigned long	abs;
+
+	sign = 1;
+	abs = 0;
+	while (ft_isspace(*str))
+		str++;
+	if (*str == '+' || *str == '-')
+		if (*(str++) == '-')
+			sign = -1;
+	while (ft_isdigit(*str))
+		abs = (abs * 10) + (*(str++) - '0');
+	return (sign * (long)abs);
 }
