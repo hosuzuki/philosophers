@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/14 22:48:44 by hos              ###   ########.fr        #
+#    Updated: 2022/09/16 20:22:38 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,9 +59,7 @@ $(NAME): $(OBJDIR) $(OBJS)
 	@printf "\n$(GR)=== Compiled [$(CC) $(CFLAGS)] ==="
 	@printf "\n--- $(notdir $(SRCS))$(RC)\n"
 	@$(CC) $(CFLAGS) $(OBJS) -o $@
-	@printf "$(YE)&&& Linked [$(CC) $(LDFLAGS)] &&&\n--- $(NAME)$(RC)\n"
-
-#-include $(DEPS)
+	@printf "$(YE)--- $(NAME)$(RC)\n"
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)

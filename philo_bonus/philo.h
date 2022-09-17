@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/14 23:33:39 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 19:42:09 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_lst
 int		sleep_task(t_lst *l);
 
 //eat_task.c
+void	activate_death_watcher(t_lst *l);
 long	eat_task(t_lst *l);
 
 //start_simulation.c

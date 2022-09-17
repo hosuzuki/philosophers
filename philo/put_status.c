@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 16:15:44 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 20:47:59 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,32 +54,34 @@ int	update_status(t_lst *l, int status)
 		l->status = SLEEPING;
 	else if (status == THINKING)
 		l->status = THINKING;
-	else if (status == DEAD)
-	{
-		raise_end_flag(l, DEAD);
-		return (-1);
-	}
+	return (0);
+}
+
+static int	put_log(t_lst *l, long time, int status)
+{
+	if (status == ONE_FORK)
+		printf("%ld %ld has taken a fork\n", time, l->index);
+	else if (status == EATING)
+		printf("%ld %ld is eating\n", time, l->index);
+	else if (status == SLEEPING)
+		printf("%ld %ld is sleeping\n", time, l->index);
+	else if (status == THINKING)
+		printf("%ld %ld is thinking\n", time, l->index);
+///	else if (status == DEAD)
+//		printf("%ld %ld died\n", time, l->index);
 	return (0);
 }
 
 int	put_status(t_lst *l, long time, int status)
 {
-	char	*ret;
-
-	ret = create_str_to_put(l, time, status);
-	if (!ret)
-		return (-1);
-//	if (is_end(l) == true)
-	usleep(500);
-	if (is_end_flag_up(l) == true)
+	pthread_mutex_lock(&(l->mt->mt_write));
+	if (is_end(l))
 	{
-		free (ret);
+		pthread_mutex_unlock(&(l->mt->mt_write));
 		return (-1);
 	}
-	pthread_mutex_lock(&(l->mt->mt_write));
-	write(1, ret, ft_strlen(ret));
+	put_log(l, time, status);
 	pthread_mutex_unlock(&(l->mt->mt_write));
-	free (ret);
 	if (update_status(l, status) == -1)
 		return (-1);
 	return (0);

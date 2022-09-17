@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:56:38 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 12:42:12 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 20:52:17 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,47 +33,3 @@ int	ft_atol(const char *str)
 		abs = (abs * 10) + (*(str++) - '0');
 	return (sign * (long)abs);
 }
-
-/*static void	*ft_memset(void *b, int c, size_t len)
-{
-	size_t			i;
-	unsigned char	*dest;
-
-	i = 0;
-	dest = (unsigned char *)b;
-	while (i < len)
-		dest[i++] = (unsigned char)c;
-	return (b);
-}
-
-static bool	check_bytes(size_t *sum, size_t *count, size_t *size)
-{
-	if (*count == 0 || *size == 0)
-	{
-		*count = 1;
-		*size = 1;
-	}
-	*sum = *count * *size;
-	if (*sum / *count != *size)
-		return (false);
-	return (true);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*res;
-	size_t	sum;
-
-	errno = 0;
-	if (!check_bytes(&sum, &count, &size))
-	{
-		errno = ENOMEM;
-		return (NULL);
-	}
-	res = malloc(sum);
-	if (!res)
-		return (NULL);
-	ft_memset(res, 0, sum);
-	return (res);
-}
-*/

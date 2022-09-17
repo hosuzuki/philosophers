@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 09:12:40 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 12:55:22 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 20:50:33 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+/*
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
@@ -89,3 +90,5 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		ft_strlcpy(dst + len_d, src, dstsize - len_d);
 	return (len_d + len_s);
 }
+
+*/
