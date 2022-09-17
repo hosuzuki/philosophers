@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 15:06:44 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 20:50:49 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdbool.h>
 # include <errno.h>
 
-# define INTERVAL	1000
+# define INTERVAL	800
 
 enum e_status
 {
@@ -75,13 +75,11 @@ void	raise_end_flag(t_lst *l, int status);
 int		end_flag_checker(t_lst *l);
 
 //eat_task.c
+void	activate_death_watcher(t_lst *l);
 long	eat_task(t_lst *l);
 
 //put_status.c
 int		put_status(t_lst *l, long time, int status);
-
-//put_status2.c
-char	*create_str_to_put(t_lst *l, long time, int status);
 
 //start_simulation.c
 int		start_simulation(t_lst *l, long num_philo);
@@ -101,12 +99,11 @@ long	what_time(void);
 
 //ft_utils.c
 int		ft_isdigit(int c);
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+//size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+//size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 
 //ft_utils2.c
 int		ft_atol(const char *str);
-//void	*ft_calloc(size_t count, size_t size);
 
 #endif

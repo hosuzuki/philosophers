@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/14 23:35:21 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 19:41:13 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	*death_handler(void *arg)
 	return (NULL);
 }
 
-static void	activate_death_watcher(t_lst *l)
+void	activate_death_watcher(t_lst *l)
 {
 	pthread_t	tmp;
 
@@ -41,7 +41,6 @@ static void	activate_death_watcher(t_lst *l)
 
 int	pickup_forks(t_lst *l)
 {
-	activate_death_watcher(l);
 	sem_wait(l->sem->fork);
 	sem_wait(l->sem->sem_write);
 	printf("%ld %ld has taken a fork\n", what_time(), l->index);
@@ -51,6 +50,7 @@ int	pickup_forks(t_lst *l)
 	l->last_meal = what_time();
 	printf("%ld %ld is eating\n", l->last_meal, l->index);
 	sem_post(l->sem->sem_write);
+	activate_death_watcher(l);
 	return (0);
 }
 

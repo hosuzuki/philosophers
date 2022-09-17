@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/14 23:34:55 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 19:38:31 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	wait_and_destroy_sem(t_lst l, pid_t *pids, long num_philo)
 static void	life_of_philo(t_lst *l)
 {
 	l->last_meal = what_time();
+	activate_death_watcher(l);
 	while (1)
 	{
 		eat_task(l);

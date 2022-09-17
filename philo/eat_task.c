@@ -6,20 +6,58 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 16:44:20 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/17 07:47:51 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static void	*death_handler(void *arg)
+{
+	t_lst	*l;
+	long	tmp;
+
+	l = (t_lst *)arg;
+	tmp = l->last_meal;
+	while (what_time() - l->last_meal <= l->info->ms_die)
+	{
+		if (tmp != l->last_meal)
+			return (NULL);
+		usleep(200);
+	}
+	pthread_mutex_lock(&(l->mt->mt_write));
+	if (is_end(l))
+	{
+		pthread_mutex_unlock(&(l->mt->mt_write));
+		return (NULL);
+	}
+	raise_end_flag(l, DEAD);
+	printf("%ld %ld died\n", what_time(), l->index);
+	pthread_mutex_unlock(&(l->mt->mt_write));
+ // can i delete this?
+//	exit(1);
+	return (NULL);
+}
+
+void	activate_death_watcher(t_lst *l)
+{
+	pthread_t	tmp;
+
+	pthread_create(&tmp, NULL, death_handler, l);
+	pthread_detach(tmp);
+}
+
 static int	pickup_left_fork(t_lst *l, long index)
 {
 	long	time_one_fork;
 
-//	if (is_end(l))
-//		return (-1);
 	pthread_mutex_lock(&(l->mt->mt_forks[index - 1]));
 	time_one_fork = what_time();
+	if (time_one_fork < 0)
+	{
+		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
+		return (-1);
+	}
 	if (put_status(l, time_one_fork, ONE_FORK) < 0)
 	{
 		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
@@ -37,14 +75,9 @@ static int	pickup_right_fork(t_lst *l, long index, long num_philo)
 		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
 		return (-1);
 	}
-	if (is_end(l))
-	{
-		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
-		return (-1);
-	}
 	pthread_mutex_lock(&(l->mt->mt_forks[index % num_philo]));
 	l->last_meal = what_time();
-	if (put_status(l, l->last_meal, EATING) < 0)
+	if (l->last_meal < 0 || put_status(l, l->last_meal, EATING) < 0)
 	{
 		pthread_mutex_unlock(&(l->mt->mt_forks[l->index - 1]));
 		pthread_mutex_unlock(&(l->mt->mt_forks[l->index % l->info->num_philo]));
@@ -55,8 +88,6 @@ static int	pickup_right_fork(t_lst *l, long index, long num_philo)
 
 long	eat_task(t_lst *l)
 {
-//	if (is_end(l))
-//		return (-1);
 	if (pickup_left_fork(l, l->index) < 0)
 			return (-1);
 	if (pickup_right_fork(l, l->index, l->info->num_philo) < 0)

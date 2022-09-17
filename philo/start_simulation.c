@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/13 16:24:40 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/16 19:45:40 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ static void	destroy_all_mutex(t_lst *l, long num_philo)
 		pthread_mutex_destroy(&(l->mt->mt_forks[i++]));
 }
 
-
-/*char *test(t_lst *l, char *s)
+/*
+char *test(t_lst *l, char *s)
 {
 	printf("index: %ld - Status: %s\n", l->index, s);
 	return (NULL);
@@ -42,17 +42,21 @@ void	*life_of_philo(void *arg)
 	l->last_meal = what_time();
 	if (l->last_meal < 0)
 		return (NULL);
+	activate_death_watcher(l);
 	while (1)
 	{
 		if (eat_task(l) < 0)
-			return (test(l, "eat"));
+			return (NULL);
+			//return (test(l, "eat"));// delete this later.
 		if (sleep_task(l) < 0)
-			return (test(l, "sleep"));
+			return (NULL);
+			//return (test(l, "sleep"));
 		time_think = what_time();
 		if (time_think < 0)
 			return (NULL);
 		if (put_status(l, time_think, THINKING) < 0)
-			return (test(l, "think"));
+			return (NULL);
+			//return (test(l, "think"));
 	}
 	return (NULL);
 }
