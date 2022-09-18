@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/18 14:25:09 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 22:48:31 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,27 +42,38 @@ typedef struct s_info
 	long	ms_eat;
 	long	ms_sleep;
 	long	num_to_eat;
-	int		*num_to_eat_flag;
 }	t_info;
 
-typedef struct s_mt
+typedef struct s_share
 {
 	int				end_flag;
-	long			*forks;
-	pthread_mutex_t	*mt_forks;
-	pthread_mutex_t	mt_end_flag;
-	pthread_mutex_t	mt_write;
-}	t_mt;
+	int				*num_to_eat_flags;
+//	long			*forks;
+///	pthread_mutex_t	end_flag;
+//	pthread_mutex_t num_to_eat_flags;
+}	t_share;
 
 typedef struct s_lst
 {
-	long	index;
-	int		status;
-	long	last_meal;
-	long	eat_count;
+	long			index;
+//	int		status;
+	long			last_meal;
+	long			eat_count;
+	pthread_mutex_t	*philo;
+	pthread_mutex_t *left_fork;
+	pthread_mutex_t *right_fork;
+	pthread_mutex_t	*writer;
 	t_info	*info;
-	t_mt	*mt;
+	t_share	*share;
 }	t_lst;
+
+typedef struct s_data
+{
+	pthread_mutex_t	share;
+	pthread_mutex_t	writer;
+	pthread_mutex_t	*philos;
+	pthread_mutex_t	*forks;
+} t_data;
 
 //sleep_task.c
 int		sleep_task(t_lst *l);

@@ -6,25 +6,26 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:33:46 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 22:18:22 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	free_all(t_info *info, t_mt *mt, t_lst *l)
+int	free_all(t_info *info, t_share *share, t_data *data, t_lst *l)
 {
 	if (info)
-	{
-		if (info->num_to_eat_flag)
-			free (info->num_to_eat_flag);
 		free (info);
-	}
-	if (mt)
+	if (share)
 	{
-		free(mt->forks);
-		free(mt->mt_forks);
-		free (mt);
+		free(share->num_to_eat_flags);
+		free (share);
+	}
+	if (data)
+	{
+		free (data->eat_lock);
+		free (data->forks);
+		free (data);
 	}
 	if (l)
 		free (l);

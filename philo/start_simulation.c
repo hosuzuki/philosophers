@@ -6,22 +6,11 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/16 19:45:40 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 23:17:05 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static void	destroy_all_mutex(t_lst *l, long num_philo)
-{
-	long	i;
-
-	pthread_mutex_destroy(&(l->mt->mt_end_flag));
-	pthread_mutex_destroy(&(l->mt->mt_write));
-	i = 0;
-	while (i < num_philo)
-		pthread_mutex_destroy(&(l->mt->mt_forks[i++]));
-}
 
 /*
 char *test(t_lst *l, char *s)
@@ -39,9 +28,14 @@ void	*life_of_philo(void *arg)
 	l = (t_lst *)arg;
 	if (l->index % 2)
 		usleep (2500);
+	pthread_mutex_lock(l->philo);
 	l->last_meal = what_time();
 	if (l->last_meal < 0)
+	{
+		pthread_mutex_unlock(l->philo);
 		return (NULL);
+	}
+	pthread_mutex_unlock(l->philo);
 	activate_death_watcher(l);
 	while (1)
 	{
@@ -61,24 +55,24 @@ void	*life_of_philo(void *arg)
 	return (NULL);
 }
 
-int	start_simulation(t_lst *l, long num_philo)
+int	start_simulation(t_data *data, t_lst *lst, long num_philo)
 {
 	long		i;
-	pthread_t	*philos;
+	pthread_t	*threads;
 
-	philos = (pthread_t *)malloc(sizeof(pthread_t) * num_philo);
+	threads = (pthread_t *)malloc(sizeof(pthread_t) * num_philo);
 	if (!philos)
-		return (free_all(l->info, l->mt, l));
+		return (free_all(l->info, l->share, data, l));
 	i = 0;
 	while (i < num_philo)
 	{
-		pthread_create(&philos[i], NULL, life_of_philo, &l[i]);
+		pthread_create(&threads[i], NULL, life_of_philo, &l[i]);
 		i++;
 	}
 	i = 0;
 	while (i < num_philo)
-		pthread_join(philos[i++], NULL);
-	destroy_all_mutex(l, num_philo);
-	free (philos);
+		pthread_join(threads[i++], NULL);
+	destroy_all_mutex(data, num_philo);
+	free (threads);
 	return (0);
 }

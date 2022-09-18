@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/17 07:47:51 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 23:18:11 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ static void	*death_handler(void *arg)
 			return (NULL);
 		usleep(200);
 	}
-	pthread_mutex_lock(&(l->mt->mt_write));
+	pthread_mutex_lock(&(l->writer));
 	if (is_end(l))
 	{
-		pthread_mutex_unlock(&(l->mt->mt_write));
+		pthread_mutex_unlock(&(l->writer));
 		return (NULL);
 	}
 	raise_end_flag(l, DEAD);
 	printf("%ld %ld died\n", what_time(), l->index);
-	pthread_mutex_unlock(&(l->mt->mt_write));
- // can i delete this?
-//	exit(1);
+	pthread_mutex_unlock(&(l->writer));
 	return (NULL);
 }
 

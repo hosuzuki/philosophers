@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/11 12:53:56 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 21:21:47 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,5 @@ int	save_argv(int argc, char **argv, t_info **info)
 		(*info)->num_to_eat = ft_atol(argv[5]);
 	else
 		(*info)->num_to_eat = -1;
-	(*info)->num_to_eat_flag = (int *)malloc(sizeof(int) * \
-		(*info)->num_philo);
-	if (!(*info)->num_to_eat_flag)
-		return (free_all(*info, NULL, NULL));
 	return (0);
 }

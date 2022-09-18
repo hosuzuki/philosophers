@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/16 20:47:59 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 14:58:14 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,11 @@ int	count_eat_num_all(t_lst *l)
 	long	i;
 
 	i = 0;
+	
+//pthread_mutex_lock(&(l->mt->mt_forks[index - 1]));
+
 	while (i <= l->info->num_philo - 1 \
-			&& l->info->num_to_eat_flag[i] == 1)
+			&& l->mt->num_to_eat_flag[i] == 1)
 		i++;
 	if (i == l->info->num_philo)
 		return (1);
@@ -31,7 +34,7 @@ int	update_for_eat(t_lst *l)
 	l->eat_count++;
 	if (l->eat_count == l->info->num_to_eat)
 	{
-		l->info->num_to_eat_flag[l->index - 1] = 1;
+		l->mt->num_to_eat_flag[l->index - 1] = 1;
 		if (count_eat_num_all(l) == 1)
 		{
 			raise_end_flag(l, OVER_EAT_COUNT);
