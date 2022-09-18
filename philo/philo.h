@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/16 20:50:49 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/18 14:25:09 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,7 @@ long	what_time(void);
 
 //ft_utils.c
 int		ft_isdigit(int c);
-//size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlen(const char *s);
-//size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-
-//ft_utils2.c
 int		ft_atol(const char *str);
 
 #endif
