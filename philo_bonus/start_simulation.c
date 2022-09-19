@@ -6,13 +6,30 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/16 19:38:31 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:15:48 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	wait_and_destroy_sem(t_lst l, pid_t *pids, long num_philo)
+static void	cleanup_sem(t_lst *l, char **names, long num_philo)
+{
+	long	i;
+
+	sem_close(l->sem->forks);
+	sem_close(l->sem->writer);
+	sem_unlink(SEM_FORKS);
+	sem_unlink(SEM_WRITER);
+	i = 0;
+	while (i < num_philo)
+	{
+		sem_close(l[i].meal_flag);
+		sem_unlink(names[i++]);
+	}
+	return ;
+}
+
+static void	wait_process(pid_t *pids, long num_philo)
 {
 	long	i;
 	int		status;
@@ -30,10 +47,7 @@ static void	wait_and_destroy_sem(t_lst l, pid_t *pids, long num_philo)
 		}
 		i++;
 	}
-	sem_close(l.sem->fork);
-	sem_close(l.sem->sem_write);
-	sem_unlink(SEM_NAME);
-	sem_unlink(SEM_WRITE);
+	return ;
 }
 
 static void	life_of_philo(t_lst *l)
@@ -42,11 +56,14 @@ static void	life_of_philo(t_lst *l)
 	activate_death_watcher(l);
 	while (1)
 	{
+		errno = 0;
 		eat_task(l);
 		sleep_task(l);
-		sem_wait(l->sem->sem_write);
+		sem_wait(l->sem->writer);
 		printf("%ld %ld is thinking\n", what_time(), l->index);
-		sem_post(l->sem->sem_write);
+		sem_post(l->sem->writer);
+		if (errno != 0)
+			put_error_and_exit("sem", -1);
 	}
 	return ;
 }
@@ -63,7 +80,7 @@ static pid_t	create_process(t_lst l)
 	return (ret);
 }
 
-int	start_simulation(t_lst *l, long num_philo)
+int	start_simulation(t_lst *l, long num_philo, char **names)
 {
 	long	i;
 	pid_t	*pids;
@@ -77,7 +94,8 @@ int	start_simulation(t_lst *l, long num_philo)
 		pids[i] = create_process(l[i]);
 		i++;
 	}
-	wait_and_destroy_sem(l[0], pids, num_philo);
+	wait_process(pids, num_philo);
+	cleanup_sem(l, names, num_philo);
 	free (pids);
 	return (0);
 }

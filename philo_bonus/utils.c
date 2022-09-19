@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/14 23:36:03 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 07:34:52 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,17 @@ bool	task_is_finished(long time_start, long duration)
 	return (true);
 }
 
-int	free_all(t_info *info, t_sem *sem, t_lst *l)
+int	free_all(t_info *info, t_sem *sem, t_lst *l, char **names)
 {
+	long	i;
+
+	i = 0;
+	if (names)
+	{
+		while (i < info->num_philo)
+			free(names[i++]);
+		free(names);
+	}
 	if (info)
 		free (info);
 	if (sem)

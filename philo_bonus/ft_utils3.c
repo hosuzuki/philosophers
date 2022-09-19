@@ -1,32 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_all.c                                         :+:      :+:    :+:   */
+/*   ft_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/10 18:33:46 by hos              ###   ########.fr       */
+/*   Created: 2022/09/20 08:19:49 by hos               #+#    #+#             */
+/*   Updated: 2022/09/20 08:22:51 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	free_all(t_info *info, t_mt *mt, t_lst *l)
+int	ft_isdigit(int c)
 {
-	if (info)
+	return ('0' <= c && c <= '9');
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	s_len;
+
+	i = 0;
+	s_len = ft_strlen(src);
+	if (dstsize == 0)
+		return (s_len);
+	while (src[i] != '\0' && i + 1 < dstsize)
 	{
-		if (info->num_to_eat_flag)
-			free (info->num_to_eat_flag);
-		free (info);
+		dst[i] = src[i];
+		i++;
 	}
-	if (mt)
-	{
-		free(mt->forks);
-		free(mt->mt_forks);
-		free (mt);
-	}
-	if (l)
-		free (l);
-	return (-1);
+	dst[i] = '\0';
+	return (s_len);
 }
