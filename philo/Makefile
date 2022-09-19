@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/18 14:24:45 by hos              ###   ########.fr        #
+#    Updated: 2022/09/19 13:12:40 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS	+= -g3
 endif
 
 ifeq ($(DEBUG), 2)
-CFLAGS	+= -fsanitize=thread 
+CFLAGS	+= -g3 -fsanitize=thread 
 endif
 
 # **************************************************************************** #
@@ -29,7 +29,9 @@ SRCS	:= \
 	main.c \
 	save_argv.c \
 	init_lst.c \
+	mutex.c \
 	start_simulation.c \
+	death_watcher.c \
 	eat_task.c \
 	sleep_task.c \
 	put_status.c \

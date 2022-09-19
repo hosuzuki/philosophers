@@ -6,14 +6,14 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/18 22:52:21 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 14:38:44 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	init_each_lst(t_lst **lst, t_info *info, \
-		t_share *share, t_data *data)
+static void	init_each_lst(t_lst **l, t_info *info, \
+		t_flags *flags, t_data *data)
 {
 	long	i;
 
@@ -24,12 +24,15 @@ static void	init_each_lst(t_lst **lst, t_info *info, \
 		(*l)[i].last_meal = 0;
 		(*l)[i].eat_count = 0;
 		(*l)[i].philo = &(data->philos[i]);
-		(*l)[i].left_fork = &(data->forks[index - 1]);
-		(*l)[i].right_fork = &(data->forks[index % info->num_philo]);
+		(*l)[i].left_fork = &(data->forks[i]);
+//		printf("%ld, left: %ld, right: %ld\n", 
+//		i + 1, i, (i + 1) % info->num_philo);
+		(*l)[i].right_fork = &(data->forks[(i + 1) % info->num_philo]);
 		(*l)[i].writer = &(data->writer);
-		(*l)[i].share = &(data->share);
-(*l)[i].info = info;
-		(*l)[i++].share = share;
+		(*l)[i].flag = &(data->flag);
+		(*l)[i].info = info;
+		(*l)[i++].flags = flags;
+//		(*l)[i - 1].flags->end_flag = 0; //delete this later
 	}
 }
 
@@ -53,42 +56,44 @@ static int	init_data(t_data **data, long num_philo)
 		free (*data);
 		return (-1);
 	}
-	(*data)->writer = NULL;
+	return (0);
+//	(*data)->writer = NULL;
 }
 
-static int	init_share(t_share **share, long num_philo)
+static int	init_flags(t_flags **flags, long num_philo)
 {
 	long	i;
 
-	*share = (t_share *)malloc(sizeof(t_share));
-	if (!(*share))
+	*flags = (t_flags *)malloc(sizeof(t_flags));
+	if (!(*flags))
 		return (-1);
-	(*share)->end_flag = 0;
-	(*share)->num_to_eat_flags = (int *)malloc(sizeof(int) * \
+	(*flags)->end_flag = 0;
+	(*flags)->num_to_eat_flags = (int *)malloc(sizeof(int) * \
 		num_philo);
-	if (!(*share)->num_to_eat_flag)
+	if (!(*flags)->num_to_eat_flags)
 	{
-		free (*share);
+		free (*flags);
 		return (-1);
 	}
+	i = 0;
 	while (i < num_philo)
-		(*share)->num_to_eat_flag[i] = 0;
+		(*flags)->num_to_eat_flags[i++] = 0;
 	return (0);
 }
 
 int	init_lst(t_info *info, t_data **data, t_lst **l)
 {
-	t_share	*share;
+	t_flags	*flags;
 
-	if (init_share(&share, info->num_philo) < 0)
+	if (init_flags(&flags, info->num_philo) < 0)
 		return (free_all(info, NULL, NULL, NULL));
 	if (init_data(data, info->num_philo) < 0)
-		return (free_all(info, share, NULL, NULL));
+		return (free_all(info, flags, NULL, NULL));
 	*l = (t_lst *)malloc(sizeof(t_lst) * info->num_philo);
 	if (!(*l))
-		return (free_all(info, share, *data, NULL));
-	if (activate_mutex(data, info->num_philo) < 0)
-		return (free_all(info, share, *data, NULL));
-	init_each_lst(info, share, *data);
+		return (free_all(info, flags, *data, NULL));
+	if (activate_mutex(*data, info->num_philo) < 0)
+		return (free_all(info, flags, *data, NULL));
+	init_each_lst(l, info, flags, *data);
 	return (0);
 }

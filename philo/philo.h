@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/18 22:48:31 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 15:52:19 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdbool.h>
 # include <errno.h>
 
-# define INTERVAL	800
+# define INTERVAL	200
 
 enum e_status
 {
@@ -44,32 +44,29 @@ typedef struct s_info
 	long	num_to_eat;
 }	t_info;
 
-typedef struct s_share
+typedef struct s_flags
 {
 	int				end_flag;
 	int				*num_to_eat_flags;
-//	long			*forks;
-///	pthread_mutex_t	end_flag;
-//	pthread_mutex_t num_to_eat_flags;
-}	t_share;
+}	t_flags;
 
 typedef struct s_lst
 {
 	long			index;
-//	int		status;
 	long			last_meal;
 	long			eat_count;
 	pthread_mutex_t	*philo;
 	pthread_mutex_t *left_fork;
 	pthread_mutex_t *right_fork;
 	pthread_mutex_t	*writer;
-	t_info	*info;
-	t_share	*share;
+	pthread_mutex_t	*flag;
+	t_info		*info;
+	t_flags		*flags;
 }	t_lst;
 
 typedef struct s_data
 {
-	pthread_mutex_t	share;
+	pthread_mutex_t	flag;
 	pthread_mutex_t	writer;
 	pthread_mutex_t	*philos;
 	pthread_mutex_t	*forks;
@@ -79,30 +76,36 @@ typedef struct s_data
 int		sleep_task(t_lst *l);
 
 //is_end.c
-bool	is_end_flag_up(t_lst *l);
+//bool	is_end_flag_up(t_lst *l);
 bool	task_is_finished(long time_start, long duration);
 bool	is_end(t_lst *l);
-void	raise_end_flag(t_lst *l, int status);
-int		end_flag_checker(t_lst *l);
+//void	raise_end_flag(t_lst *l, int status);
+//int		end_flag_checker(t_lst *l);
 
 //eat_task.c
-void	activate_death_watcher(t_lst *l);
 long	eat_task(t_lst *l);
+
+//death_wather.c
+void	activate_death_watcher(t_lst *l);
 
 //put_status.c
 int		put_status(t_lst *l, long time, int status);
 
 //start_simulation.c
-int		start_simulation(t_lst *l, long num_philo);
+int		start_simulation(t_data *data, t_lst *l, long num_philo);
 
 //free_all.c
-int		free_all(t_info *info, t_mt *mt, t_lst *l);
+int		free_all(t_info *info, t_flags *flags, t_data *data, t_lst *l);
 
 //save_argv.c
 int		save_argv(int argc, char **argv, t_info **info);
 
 //init_lst.c
-int		init_lst(t_lst **l, t_info *info);
+int		init_lst(t_info *info, t_data **data, t_lst **l);
+
+//mutex.t
+void	destroy_all_mutex(t_data *data, long num_philo);
+int	activate_mutex(t_data *data, long num_philo);
 
 //utils.c
 int		put_error(const char *str, int ret);
