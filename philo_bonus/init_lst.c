@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 00:00:01 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 07:50:36 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,15 @@ static char **init_sem_names(long num_philo)
 	names = (char **)malloc(sizeof(char *) * num_philo);
 	if (!names)
 		put_error_and_exit("malloc", -1);
-	*names = (char *)malloc(sizeof(char) * 10);
-	if (!(*names))
-		put_error_and_exit("malloc", -1);
 	i = 0;
-	while (i < num_philo)
+/*	while (i < num_philo)
+	{
+		names[i] = (char *)malloc(sizeof(char) * 10);
+		if (!(names[i++]))
+			put_error_and_exit("malloc", -1);
+	}
+	i = 0;
+*/	while (i < num_philo)
 	{
 		num = ft_itoa(i);
 		if (!num)

@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:02:20 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 23:54:49 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:01:22 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static void	*death_handler(void *arg)
 		usleep(INTERVAL);
 	}
 	sem_wait(l->sem->writer);
+	if (errno != 0)
+		put_error_and_exit("sem", -1);
 	printf("%ld %ld died\n", what_time(), l->index);
 	exit(1);
 	return (NULL);
@@ -45,6 +47,8 @@ void	activate_death_watcher(t_lst *l)
 {
 	pthread_t	tmp;
 
-	pthread_create(&tmp, NULL, death_handler, l);
-	pthread_detach(tmp);
+	if (pthread_create(&tmp, NULL, death_handler, l))
+		put_error_and_exit("pthread_create", -1);
+	if (pthread_detach(tmp))
+		put_error_and_exit("pthread_detatch", -1);
 }

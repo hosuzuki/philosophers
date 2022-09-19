@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 23:54:35 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:04:44 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static long	pickup_forks(t_lst *l)
 	sem_wait(l->sem->writer);
 	printf("%ld %ld has taken a fork\n", what_time(), l->index);
 	sem_post(l->sem->writer);
+	if (errno != 0)
+		put_error_and_exit("sem", -1);
 	sem_wait(l->sem->forks);
 	sem_wait(l->sem->writer);
 //	printf("forks3:%ld\n", l->index);
@@ -29,6 +31,8 @@ static long	pickup_forks(t_lst *l)
 	sem_post(l->meal_flag);
 	printf("%ld %ld is eating\n", time, l->index);
 	sem_post(l->sem->writer);
+	if (errno != 0)
+		put_error_and_exit("sem", -1);
 	activate_death_watcher(l);
 	return (time);
 }
@@ -48,5 +52,7 @@ long	eat_task(t_lst *l)
 		if (l->info->num_to_eat == 0)
 			exit(0);
 	}
+	if (errno != 0)
+		put_error_and_exit("sem", -1);
 	return (0);
 }
