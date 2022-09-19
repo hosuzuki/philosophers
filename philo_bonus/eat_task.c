@@ -6,61 +6,42 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/16 19:41:13 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 23:54:35 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	*death_handler(void *arg)
+static long	pickup_forks(t_lst *l)
 {
-	t_lst	*l;
-	long	tmp;
+	long	time;
 
-	l = (t_lst *)arg;
-	tmp = l->last_meal;
-	while (what_time() - l->last_meal <= l->info->ms_die)
-	{
-		if (tmp != l->last_meal)
-			return (NULL);
-		usleep(200);
-	}
-	sem_wait(l->sem->sem_write);
-	printf("%ld %ld died\n", what_time(), l->index);
-	exit(1);
-	return (NULL);
-}
-
-void	activate_death_watcher(t_lst *l)
-{
-	pthread_t	tmp;
-
-	pthread_create(&tmp, NULL, death_handler, l);
-	pthread_detach(tmp);
-}
-
-int	pickup_forks(t_lst *l)
-{
-	sem_wait(l->sem->fork);
-	sem_wait(l->sem->sem_write);
+	sem_wait(l->sem->forks);
+	sem_wait(l->sem->writer);
 	printf("%ld %ld has taken a fork\n", what_time(), l->index);
-	sem_post(l->sem->sem_write);
-	sem_wait(l->sem->fork);
-	sem_wait(l->sem->sem_write);
-	l->last_meal = what_time();
-	printf("%ld %ld is eating\n", l->last_meal, l->index);
-	sem_post(l->sem->sem_write);
+	sem_post(l->sem->writer);
+	sem_wait(l->sem->forks);
+	sem_wait(l->sem->writer);
+//	printf("forks3:%ld\n", l->index);
+	time = what_time();
+	sem_wait(l->meal_flag);
+	l->last_meal = time;
+	sem_post(l->meal_flag);
+	printf("%ld %ld is eating\n", time, l->index);
+	sem_post(l->sem->writer);
 	activate_death_watcher(l);
-	return (0);
+	return (time);
 }
 
 long	eat_task(t_lst *l)
 {
-	pickup_forks(l);
-	while (!task_is_finished(l->last_meal, l->info->ms_eat))
+	long	time;
+
+	time = pickup_forks(l);
+	while (!task_is_finished(time, l->info->ms_eat))
 		usleep(INTERVAL);
-	sem_post(l->sem->fork);
-	sem_post(l->sem->fork);
+	sem_post(l->sem->forks);
+	sem_post(l->sem->forks);
 	if (l->info->num_to_eat != -1)
 	{
 		l->info->num_to_eat--;
