@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/16 19:42:09 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 21:16:45 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 # include <errno.h>
 # include <semaphore.h>
 
-# define SEM_NAME "/name"
-# define SEM_WRITE "/write"
-# define INTERVAL 1000
+# define SEM_FORKS "/forks"
+# define SEM_WRITER "/writer"
+# define SEM_MEAL_FLAG "/meal_flag"
+# define INTERVAL 500
 
 typedef struct s_info
 {
@@ -42,14 +43,17 @@ typedef struct s_info
 
 typedef struct s_sem
 {
-	sem_t	*fork;
-	sem_t	*sem_write;
+	sem_t	*forks;
+	sem_t	*writer;
+//	sem_t	**meal_flags;
 }	t_sem;
 
 typedef struct s_lst
 {
 	long	index;
 	long	last_meal;
+//	long	eat_count;
+	sem_t	*meal_flag;
 	t_info	*info;
 	t_sem	*sem;
 }	t_lst;
@@ -57,8 +61,10 @@ typedef struct s_lst
 //sleep_task.c
 int		sleep_task(t_lst *l);
 
-//eat_task.c
+//death_watcher.c
 void	activate_death_watcher(t_lst *l);
+
+//eat_task.c
 long	eat_task(t_lst *l);
 
 //start_simulation.c
