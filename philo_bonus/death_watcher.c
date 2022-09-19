@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:02:20 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 22:02:31 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 23:54:49 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	*death_handler(void *arg)
 //		printf("death_loop2:%ld\n", l->index);
 		if (time != l->last_meal)
 		{
-			printf("death_loop3:%ld\n", l->index);
+//			printf("death_loop3:%ld\n", l->index);
 			sem_post(l->meal_flag);
 			return (NULL);
 		}
