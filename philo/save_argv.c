@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/18 21:21:47 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 23:52:50 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	error_checker(int argc, char **argv)
 			return (put_error("Invalid Argument", -1));
 	}
 	num_philo = ft_atol(argv[1]);
-	if (num_philo < 1)
+	if (num_philo < 1 || 200 < num_philo)
 		return (put_error("Invalid Argument", -1));
 	if (argc == 6)
 	{
