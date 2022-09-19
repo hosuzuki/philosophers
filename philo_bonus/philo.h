@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 23:30:50 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:23:28 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ typedef struct s_sem
 {
 	sem_t	*forks;
 	sem_t	*writer;
-//	char	**names;
-//	sem_t	**meal_flags;
 }	t_sem;
 
 typedef struct s_lst
@@ -85,7 +83,6 @@ int		free_all(t_info *info, t_sem *sem, t_lst *l, char **names);
 bool	task_is_finished(long time_start, long duration);
 
 //ft_utils.c
-size_t	ft_strlen(const char *s);
 int		ft_isdigit(int c);
 int		ft_atol(const char *str);
 char	*ft_itoa(int n);
@@ -93,4 +90,8 @@ char	*ft_itoa(int n);
 //ft_utils2.c
 char	*ft_strjoin(char const *s1, char const *s2);
 
+//ft_utils3.c
+int		ft_isdigit(int c);
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 #endif

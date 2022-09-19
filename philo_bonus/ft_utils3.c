@@ -1,29 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sleep_task.c                                       :+:      :+:    :+:   */
+/*   ft_utils3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:13:47 by hos              ###   ########.fr       */
+/*   Created: 2022/09/20 08:19:49 by hos               #+#    #+#             */
+/*   Updated: 2022/09/20 08:22:51 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	sleep_task(t_lst *l)
+int	ft_isdigit(int c)
 {
-	long	now;
+	return ('0' <= c && c <= '9');
+}
 
-	errno = 0;
-	now = what_time();
-	sem_wait(l->sem->writer);
-	printf("%ld %ld is sleeping\n", now, l->index);
-	sem_post(l->sem->writer);
-	while (!task_is_finished(now, l->info->ms_sleep))
-		usleep(INTERVAL);
-	if (errno != 0)
-		put_error_and_exit("sem", -1);
-	return (0);
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+	size_t	s_len;
+
+	i = 0;
+	s_len = ft_strlen(src);
+	if (dstsize == 0)
+		return (s_len);
+	while (src[i] != '\0' && i + 1 < dstsize)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (s_len);
 }

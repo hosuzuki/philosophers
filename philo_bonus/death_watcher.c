@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:02:20 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:01:22 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:18:04 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,15 @@ static void	*death_handler(void *arg)
 	long	time;
 
 	l = (t_lst *)arg;
+	errno = 0;
 	sem_wait(l->meal_flag);
 	time = l->last_meal;
 	sem_post(l->meal_flag);
-
 	while (what_time() - time <= l->info->ms_die)
 	{
 		sem_wait(l->meal_flag);
-//		printf("death_loop2:%ld\n", l->index);
 		if (time != l->last_meal)
 		{
-//			printf("death_loop3:%ld\n", l->index);
 			sem_post(l->meal_flag);
 			return (NULL);
 		}

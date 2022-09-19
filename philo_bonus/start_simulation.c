@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:02:58 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:15:48 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,11 @@ static void	wait_process(pid_t *pids, long num_philo)
 
 static void	life_of_philo(t_lst *l)
 {
-//	sem_t	*meal_flag;
-
-//	l->meal_flag = sem_open(SEM_MEAL_FLAG, O_CREAT | O_EXCL, 777, 1);
-//	if (errno != 0)
-//		put_error_and_exit("sem_open", -1);
 	l->last_meal = what_time();
 	activate_death_watcher(l);
 	while (1)
 	{
-//		eat_task(l, meal_flag);
+		errno = 0;
 		eat_task(l);
 		sleep_task(l);
 		sem_wait(l->sem->writer);
@@ -70,8 +65,6 @@ static void	life_of_philo(t_lst *l)
 		if (errno != 0)
 			put_error_and_exit("sem", -1);
 	}
-//	sem_close(l->meal_flag);
-//	sem_unlink(SEM_MEAL_FLAG);
 	return ;
 }
 

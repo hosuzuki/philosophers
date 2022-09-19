@@ -1,22 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils2.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/09/20 08:19:53 by hos               #+#    #+#             */
+/*   Updated: 2022/09/20 08:20:26 by hos              ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
-
-static size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	size_t	i;
-	size_t	s_len;
-
-	i = 0;
-	s_len = ft_strlen(src);
-	if (dstsize == 0)
-		return (s_len);
-	while (src[i] != '\0' && i + 1 < dstsize)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (s_len);
-}
 
 static size_t	dst_length(char *dst, size_t dstsize)
 {

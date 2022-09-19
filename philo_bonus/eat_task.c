@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:04:44 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:13:02 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static long	pickup_forks(t_lst *l)
 		put_error_and_exit("sem", -1);
 	sem_wait(l->sem->forks);
 	sem_wait(l->sem->writer);
-//	printf("forks3:%ld\n", l->index);
 	time = what_time();
 	sem_wait(l->meal_flag);
 	l->last_meal = time;

@@ -6,26 +6,11 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 11:56:38 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 23:30:42 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 08:22:59 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
-}
-
-int	ft_isdigit(int c)
-{
-	return ('0' <= c && c <= '9');
-}
 
 static int	ft_isspace(int c)
 {
