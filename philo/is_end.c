@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 15:52:11 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 17:09:49 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,10 @@
 
 bool	task_is_finished(long time_start, long duration)
 {
-	long	time_now;
-
-	time_now = what_time();
-	if (time_now < 0)
-		return (false);
-	if (time_now - time_start < duration)
+	if (what_time() - time_start < duration)
 		return (false);
 	return (true);
 }
-
-/*
- void	raise_end_flag(t_lst *l, int status)
-{
-//	pthread_mutex_lock(l->);
-	l->flags->end_flag = status;
-//	pthread_mutex_unlock(l->);
-}
-*/
 
 bool	is_end(t_lst *l)
 {

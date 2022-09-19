@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 14:38:44 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 16:55:02 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,11 @@ static void	init_each_lst(t_lst **l, t_info *info, \
 		(*l)[i].eat_count = 0;
 		(*l)[i].philo = &(data->philos[i]);
 		(*l)[i].left_fork = &(data->forks[i]);
-//		printf("%ld, left: %ld, right: %ld\n", 
-//		i + 1, i, (i + 1) % info->num_philo);
 		(*l)[i].right_fork = &(data->forks[(i + 1) % info->num_philo]);
 		(*l)[i].writer = &(data->writer);
 		(*l)[i].flag = &(data->flag);
 		(*l)[i].info = info;
 		(*l)[i++].flags = flags;
-//		(*l)[i - 1].flags->end_flag = 0; //delete this later
 	}
 }
 
@@ -57,7 +54,6 @@ static int	init_data(t_data **data, long num_philo)
 		return (-1);
 	}
 	return (0);
-//	(*data)->writer = NULL;
 }
 
 static int	init_flags(t_flags **flags, long num_philo)

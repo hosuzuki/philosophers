@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:57:15 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 16:24:53 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 17:00:40 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(int argc, char **argv)
 {
 	t_info	*info;
 	t_data	*data;
-	t_lst		*l;
+	t_lst	*l;
 
 	if (save_argv(argc, argv, &info) < 0)
 		return (-1);

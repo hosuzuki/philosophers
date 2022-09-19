@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 22:23:52 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 16:23:49 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 16:54:37 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	destroy_all_mutex(t_data *data, long num_philo)
 	long	i;
 
 	pthread_mutex_destroy(&(data->flag));
-	pthread_mutex_destroy(&(data->writer));//
+	pthread_mutex_destroy(&(data->writer));
 	i = 0;
 	while (i < num_philo)
 	{
