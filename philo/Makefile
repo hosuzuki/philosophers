@@ -6,7 +6,7 @@
 #    By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/30 14:42:39 by hos               #+#    #+#              #
-#    Updated: 2022/09/19 13:12:40 by hos              ###   ########.fr        #
+#    Updated: 2022/09/19 17:16:36 by hos              ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,6 @@ SRCS	:= \
 	sleep_task.c \
 	put_status.c \
 	is_end.c \
-	free_all.c \
 	utils.c \
 	ft_utils.c \
 
