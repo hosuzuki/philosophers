@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:03 by hos               #+#    #+#             */
-/*   Updated: 2022/09/19 16:34:39 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/19 17:00:30 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	count_eat_num_all(t_lst *l)
 	long	i;
 
 	i = 0;
-	
 	while (i <= l->info->num_philo - 1 \
 			&& l->flags->num_to_eat_flags[i] == 1)
 		i++;
@@ -28,8 +27,6 @@ int	count_eat_num_all(t_lst *l)
 
 int	update_for_eat(t_lst *l)
 {
-//	l->status = EATING;
-	//pthread_mutex_lock(l->philo);
 	l->eat_count++;
 	if (l->eat_count == l->info->num_to_eat)
 	{
@@ -39,15 +36,12 @@ int	update_for_eat(t_lst *l)
 		{
 			l->flags->end_flag = OVER_EAT_COUNT;
 			pthread_mutex_unlock(l->flag);
-		//	pthread_mutex_unlock(l->philo);
 			return (-1);
 		}
 		pthread_mutex_unlock(l->flag);
 	}
-//	pthread_mutex_unlock(l->philo);
 	return (0);
 }
-
 
 static int	put_log(t_lst *l, long time, int status)
 {
@@ -82,7 +76,5 @@ int	put_status(t_lst *l, long time, int status)
 		}
 	}
 	pthread_mutex_unlock(l->writer);
-//	if (update_status(l, status) == -1)
-//		return (-1);
 	return (0);
 }
