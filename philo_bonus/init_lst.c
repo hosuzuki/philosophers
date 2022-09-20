@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:17:55 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 11:15:25 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ static int	activate_sem(t_sem *sem, long num_philo)
 	sem_unlink(SEM_FORKS);
 	sem_unlink(SEM_WRITER);
 	sem_unlink(SEM_MEAL_FLAG);
-	errno = 0;
 	sem->forks = sem_open(SEM_FORKS, O_CREAT | O_EXCL, 777, num_philo);
 	sem->writer = sem_open(SEM_WRITER, O_CREAT | O_EXCL, 777, 1);
-	if (errno != 0)
-		put_error_and_exit("sem_open", -1);
 	return (0);
 }
 
