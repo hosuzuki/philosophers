@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:02:20 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:18:04 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 11:14:48 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	*death_handler(void *arg)
 	long	time;
 
 	l = (t_lst *)arg;
-	errno = 0;
 	sem_wait(l->meal_flag);
 	time = l->last_meal;
 	sem_post(l->meal_flag);
@@ -34,8 +33,6 @@ static void	*death_handler(void *arg)
 		usleep(INTERVAL);
 	}
 	sem_wait(l->sem->writer);
-	if (errno != 0)
-		put_error_and_exit("sem", -1);
 	printf("%ld %ld died\n", what_time(), l->index);
 	exit(1);
 	return (NULL);

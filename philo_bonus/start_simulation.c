@@ -6,7 +6,7 @@
 /*   By: hos <hosuzuki@student.42tokyo.jp>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 14:39:02 by hos               #+#    #+#             */
-/*   Updated: 2022/09/20 08:15:48 by hos              ###   ########.fr       */
+/*   Updated: 2022/09/20 11:15:54 by hos              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,11 @@ static void	life_of_philo(t_lst *l)
 	activate_death_watcher(l);
 	while (1)
 	{
-		errno = 0;
 		eat_task(l);
 		sleep_task(l);
 		sem_wait(l->sem->writer);
 		printf("%ld %ld is thinking\n", what_time(), l->index);
 		sem_post(l->sem->writer);
-		if (errno != 0)
-			put_error_and_exit("sem", -1);
 	}
 	return ;
 }
